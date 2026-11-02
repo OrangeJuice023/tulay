@@ -1,37 +1,33 @@
 ﻿# Development Workflow
 
-## Getting Started
-1. Clone repo
-2. Install dependencies
-3. Set up env vars
-4. Run migrations (Supabase)
-5. Start dev server
+Day-to-day setup. Agent roles and hand-offs: `docs/AGENT_WORKFLOW.md`. Commits and branches:
+`docs/COMMIT_CONVENTIONS.md`.
 
-## Branching
-- main: stable
-- eat/*, ix/*, docs/*: feature branches
+## Getting started
 
-## Commits
-Conventional commits: eat:, ix:, docs:, chore:, efactor:, 	est:
+1. Clone the repo.
+2. `cd apps/web && npm install`.
+3. Optional: copy `.env.example` to `apps/web/.env.local` and fill values. Without it, demo mode.
+4. Supabase migrations: none yet (see `planning/NEXT_STEPS.md`).
+5. `npm run dev`.
 
-## Before Committing
-- [ ] Lint passes
-- [ ] Type check passes  
-- [ ] Build passes (if applicable)
-- [ ] Tests pass (if exist)
-- [ ] No secrets committed
+## Before committing
+
+- [ ] `npm run lint` passes
+- [ ] `npx tsc --noEmit` passes
+- [ ] `npm run build` passes
+- [ ] Tests pass (once a runner exists)
+- [ ] No secrets or ignored data staged
 - [ ] Relevant docs updated
 
-## Code Style
-- TypeScript strict mode
-- Functional components
-- Tailwind CSS
-- Follow existing patterns
-- Minimal comments unless necessary
+## Code style
 
-## AI Agent Guidelines
-- Inspect before changing
-- Keep scope tight
-- Validate AI outputs
-- Enforce consent
-- Document decisions
+TypeScript strict, functional React components, Tailwind, Zod at every boundary (form input,
+model output, route input). Use `next/link` for internal links. Follow the patterns already in
+the file you are editing; comment only where intent is not obvious.
+
+## Troubleshooting
+
+- `'next' is not recognized` / missing `.bin`, or "not a valid Win32 application" for
+  `@next/swc-win32-x64-msvc`: `node_modules` is a partial or corrupt install. Delete
+  `apps/web/node_modules` and `apps/web/.next`, then `npm install` again (seen 2026-10-28).
