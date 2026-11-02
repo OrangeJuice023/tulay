@@ -1,66 +1,44 @@
-﻿import { ExtractedGoal, ExtractedGoalSchema, MatchExplanation, MatchExplanationSchema } from '@tulay/shared'
+import type {
+  CollaborationSuggestions,
+  ConciergeCriteria,
+  DraftIntroductionContextInput,
+  ExplainMatchContextInput,
+  ExtractedGoal,
+  IntroductionDraft,
+  MatchExplanation,
+  SuggestCollaborationContextInput,
+  SuggestTagsContextInput,
+  SuggestedTags,
+} from '@tulay/shared'
+import { DemoProvider } from './demo'
+import { MetaModelProvider } from './meta'
+
+export { DemoProvider } from './demo'
+export {
+  META_API_DEFAULT_BASE_URL,
+  META_API_DEFAULT_MODEL,
+  META_API_MAX_INPUT_CHARS,
+  META_API_TIMEOUT_MS,
+  MetaModelProvider,
+  MetaProviderError,
+  type MetaProviderErrorCode,
+  type MetaProviderOptions,
+} from './meta'
 
 export interface AIProvider {
   extractGoal(input: string): Promise<ExtractedGoal>
-  explainMatch(context: any): Promise<MatchExplanation>
-  draftIntroduction(context: any): Promise<{ message: string }>
-  suggestCollaboration(context: any): Promise<{ suggestions: string[] }>
-}
-
-export class DemoProvider implements AIProvider {
-  async extractGoal(input: string): Promise<ExtractedGoal> {
-    const result = {
-      goal: input,
-      needs: ['guidance', 'feedback'],
-      offers: ['experience sharing'],
-      skills: ['communication'],
-      preferences: {}
-    }
-    return ExtractedGoalSchema.parse(result)
-  }
-
-  async explainMatch(context: any): Promise<MatchExplanation> {
-    const result = {
-      explanation: 'This is a demo match based on complementary goals and skills.',
-      compatibilityFactors: ['complementary needs', 'shared interests'],
-      suggestedCollaboration: 'Start with a 30-minute conversation to share experiences.'
-    }
-    return MatchExplanationSchema.parse(result)
-  }
-
-  async draftIntroduction(context: any): Promise<{ message: string }> {
-    return { message: 'Hi! I saw we might be able to help each other. Would you be open to a quick chat?' }
-  }
-
-  async suggestCollaboration(context: any): Promise<{ suggestions: string[] }> {
-    return { suggestions: ['Share portfolio for review', 'Practice interview questions', 'Discuss career transition strategy'] }
-  }
-}
-
-export class MetaModelProvider implements AIProvider {
-  async extractGoal(input: string): Promise<ExtractedGoal> {
-    // TODO: Implement actual Meta Model API call
-    // For now, fall back to demo if not implemented
-    return new DemoProvider().extractGoal(input)
-  }
-
-  async explainMatch(context: any): Promise<MatchExplanation> {
-    return new DemoProvider().explainMatch(context)
-  }
-
-  async draftIntroduction(context: any): Promise<{ message: string }> {
-    return new DemoProvider().draftIntroduction(context)
-  }
-
-  async suggestCollaboration(context: any): Promise<{ suggestions: string[] }> {
-    return new DemoProvider().suggestCollaboration(context)
-  }
+  extractCriteria(input: string): Promise<ConciergeCriteria>
+  explainMatch(context: ExplainMatchContextInput): Promise<MatchExplanation>
+  draftIntroduction(context: DraftIntroductionContextInput): Promise<IntroductionDraft>
+  suggestCollaboration(context: SuggestCollaborationContextInput): Promise<CollaborationSuggestions>
+  suggestTags(context: SuggestTagsContextInput): Promise<SuggestedTags>
 }
 
 export function getAIProvider(): AIProvider {
-  const hasKey = process.env.META_MODEL_API_KEY
   const provider = process.env.AI_PROVIDER || 'demo'
-  if (provider === 'meta' && hasKey) {
+  // MODEL_API_KEY is canonical; META_MODEL_API_KEY stays as a legacy fallback.
+  const apiKey = process.env.MODEL_API_KEY || process.env.META_MODEL_API_KEY
+  if (provider === 'meta' && apiKey) {
     return new MetaModelProvider()
   }
   return new DemoProvider()

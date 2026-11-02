@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <!-- Ivory tile so the mark reads on light and dark browser chrome. -->
+  <rect width="48" height="48" rx="11" fill="#FFF9F2"/>
+  <g transform="translate(5 5) scale(0.79)">
+    <circle cx="10" cy="9" r="5" fill="#176B46"/>
+    <circle cx="38" cy="9" r="5" fill="#FF7A59"/>
+    <rect x="3" y="17" width="42" height="6" rx="3" fill="#176B46"/>
+    <rect x="21" y="17" width="6" height="25" rx="3" fill="#176B46"/>
+    <path d="M8 42 C8 30 15 23 24 23 C33 23 40 30 40 42" fill="none" stroke="#176B46" stroke-width="6" stroke-linecap="round"/>
+  </g>
+</svg>

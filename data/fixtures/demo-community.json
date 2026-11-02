@@ -1,0 +1,572 @@
+{
+  "$comment": "SYNTHETIC DATA ONLY. Every person below is fictional: invented names, bios, needs, and offers for demo mode and tests. All profiles carry isDemo=true. Never present these people as registered members of a real community. See data/README.md.",
+  "members": [
+    {
+      "profile": {
+        "id": "11111111-1111-4111-8111-111111111111",
+        "displayName": "Mara Santos",
+        "bio": "Call-centre agent for six years, studying UX design at night.",
+        "careerBackground": "Customer support lead in Manila.",
+        "currentSituation": "Building a first UX portfolio while working full time.",
+        "careerGoal": "Move from call-centre work into a junior UX design role",
+        "availability": "weekday evenings",
+        "languages": ["fil", "en"],
+        "countryCode": "PH",
+        "locale": "en-PH",
+        "discoverable": true,
+        "contactMethod": "mara.santos@example.com",
+        "isDemo": true
+      },
+      "offers": [
+        {
+          "id": "11111111-1111-4111-8111-111111111101",
+          "profileId": "11111111-1111-4111-8111-111111111111",
+          "description": "English interview practice from years of taking customer calls",
+          "tags": ["interview-practice", "english"],
+          "capacity": "1 session a week",
+          "status": "active"
+        }
+      ],
+      "needs": [
+        {
+          "id": "11111111-1111-4111-8111-111111111102",
+          "profileId": "11111111-1111-4111-8111-111111111111",
+          "description": "Portfolio review from a working UX designer before I apply",
+          "tags": ["portfolio-review", "ux-design"],
+          "goalContext": "Move from call-centre work into a junior UX design role",
+          "status": "open",
+          "aiSuggested": false
+        }
+      ]
+    },
+    {
+      "profile": {
+        "id": "22222222-2222-4222-8222-222222222222",
+        "displayName": "Ate Liza Ramos",
+        "bio": "Senior virtual assistant and informal mentor to new freelancers.",
+        "careerBackground": "Ten years supporting founders remotely.",
+        "currentSituation": "Mentoring part time; promoting her own services.",
+        "careerGoal": "Grow a small mentoring practice alongside VA work",
+        "availability": "weekday mornings",
+        "languages": ["fil", "en"],
+        "countryCode": "PH",
+        "locale": "en-PH",
+        "discoverable": true,
+        "contactMethod": "liza.ramos@example.com",
+        "isDemo": true
+      },
+      "offers": [
+        {
+          "id": "22222222-2222-4222-8222-222222222201",
+          "profileId": "22222222-2222-4222-8222-222222222222",
+          "description": "Mentoring for new freelancers starting from BPO work",
+          "tags": ["mentoring", "career-transition"],
+          "capacity": "2 sessions a month",
+          "status": "active"
+        },
+        {
+          "id": "22222222-2222-4222-8222-222222222202",
+          "profileId": "22222222-2222-4222-8222-222222222222",
+          "description": "Advice on pricing freelance services and writing proposals",
+          "tags": ["pricing", "proposal-writing", "freelancing"],
+          "capacity": "1 session a week",
+          "status": "active"
+        }
+      ],
+      "needs": [
+        {
+          "id": "22222222-2222-4222-8222-222222222203",
+          "profileId": "22222222-2222-4222-8222-222222222222",
+          "description": "Help editing short-form video to promote my services",
+          "tags": ["video-editing", "short-form-video"],
+          "status": "open",
+          "aiSuggested": false
+        }
+      ]
+    },
+    {
+      "profile": {
+        "id": "33333333-3333-4333-8333-333333333333",
+        "displayName": "Jun Dela Cruz",
+        "bio": "Junior developer landing his first freelance clients.",
+        "careerBackground": "Self-taught web developer, one internship.",
+        "currentSituation": "Writing proposals and unsure how to price.",
+        "careerGoal": "Land steady freelance web-development clients",
+        "availability": "flexible",
+        "languages": ["en", "fil"],
+        "countryCode": "PH",
+        "locale": "en-PH",
+        "discoverable": true,
+        "isDemo": true
+      },
+      "offers": [
+        {
+          "id": "33333333-3333-4333-8333-333333333301",
+          "profileId": "33333333-3333-4333-8333-333333333333",
+          "description": "Website setup help using modern web-development tools",
+          "tags": ["web-development", "website-setup"],
+          "capacity": "1 session a week",
+          "status": "active"
+        }
+      ],
+      "needs": [
+        {
+          "id": "33333333-3333-4333-8333-333333333302",
+          "profileId": "33333333-3333-4333-8333-333333333333",
+          "description": "Feedback on my client proposal and help with pricing",
+          "tags": ["proposal-writing", "pricing"],
+          "status": "open",
+          "aiSuggested": false
+        },
+        {
+          "id": "33333333-3333-4333-8333-333333333303",
+          "profileId": "33333333-3333-4333-8333-333333333333",
+          "description": "First-client onboarding checklist",
+          "tags": ["freelancing"],
+          "status": "fulfilled",
+          "aiSuggested": false
+        }
+      ]
+    },
+    {
+      "profile": {
+        "id": "44444444-4444-4444-8444-444444444444",
+        "displayName": "Bianca Torres",
+        "bio": "Accounting graduate shifting into data analytics.",
+        "careerBackground": "Two years in bookkeeping.",
+        "currentSituation": "Finishing an online analytics course with a portfolio project.",
+        "careerGoal": "Become a freelance data analyst",
+        "availability": "weekends",
+        "languages": ["fil", "en"],
+        "countryCode": "PH",
+        "locale": "en-PH",
+        "discoverable": true,
+        "isDemo": true
+      },
+      "offers": [
+        {
+          "id": "44444444-4444-4444-8444-444444444401",
+          "profileId": "44444444-4444-4444-8444-444444444444",
+          "description": "Peer portfolio review swap for fellow career changers",
+          "tags": ["portfolio-review"],
+          "capacity": "1 session a week",
+          "status": "active"
+        },
+        {
+          "id": "44444444-4444-4444-8444-444444444402",
+          "profileId": "44444444-4444-4444-8444-444444444444",
+          "description": "Spreadsheet cleanup from my bookkeeping years",
+          "tags": ["spreadsheets", "excel"],
+          "capacity": "1 session a week",
+          "status": "active"
+        }
+      ],
+      "needs": [
+        {
+          "id": "44444444-4444-4444-8444-444444444403",
+          "profileId": "44444444-4444-4444-8444-444444444444",
+          "description": "Feedback on my data analytics portfolio from someone in the field",
+          "tags": ["data-analytics", "portfolio-review", "python"],
+          "status": "open",
+          "aiSuggested": false
+        },
+        {
+          "id": "44444444-4444-4444-8444-444444444404",
+          "profileId": "44444444-4444-4444-8444-444444444444",
+          "description": "Mock interviews for junior analytics roles",
+          "tags": ["interview-practice"],
+          "status": "open",
+          "aiSuggested": false
+        }
+      ]
+    },
+    {
+      "profile": {
+        "id": "55555555-5555-4555-8555-555555555555",
+        "displayName": "Rafael Aquino",
+        "bio": "Freelance data analyst working with startups.",
+        "careerBackground": "Four years in analytics, two freelance.",
+        "currentSituation": "Fully booked but wants a stronger portfolio site.",
+        "careerGoal": "Win bigger analytics contracts with a stronger portfolio",
+        "availability": "weekday evenings",
+        "languages": ["en", "fil"],
+        "countryCode": "PH",
+        "locale": "en-PH",
+        "discoverable": true,
+        "contactMethod": "rafael.aquino@example.com",
+        "isDemo": true
+      },
+      "offers": [
+        {
+          "id": "55555555-5555-4555-8555-555555555501",
+          "profileId": "55555555-5555-4555-8555-555555555555",
+          "description": "One-on-one guidance on SQL, Python, and data storytelling for analytics projects",
+          "tags": ["data-analytics", "python"],
+          "capacity": "1 session a week",
+          "status": "active"
+        },
+        {
+          "id": "55555555-5555-4555-8555-555555555502",
+          "profileId": "55555555-5555-4555-8555-555555555555",
+          "description": "Excel dashboard templates",
+          "tags": ["dashboards", "excel"],
+          "status": "paused"
+        }
+      ],
+      "needs": [
+        {
+          "id": "55555555-5555-4555-8555-555555555503",
+          "profileId": "55555555-5555-4555-8555-555555555555",
+          "description": "Help presenting my portfolio so it wins bigger contracts",
+          "tags": ["portfolio-review", "presentations"],
+          "status": "open",
+          "aiSuggested": false
+        }
+      ]
+    },
+    {
+      "profile": {
+        "id": "66666666-6666-4666-8666-666666666666",
+        "displayName": "Sofia Lim",
+        "bio": "Junior web developer, first job out of a bootcamp.",
+        "careerBackground": "Coding bootcamp graduate.",
+        "currentSituation": "Hungry for feedback on real project code.",
+        "careerGoal": "Grow into a mid-level developer role",
+        "availability": "weekday evenings",
+        "languages": ["en"],
+        "countryCode": "PH",
+        "locale": "en-PH",
+        "discoverable": true,
+        "isDemo": true
+      },
+      "offers": [
+        {
+          "id": "66666666-6666-4666-8666-666666666601",
+          "profileId": "66666666-6666-4666-8666-666666666666",
+          "description": "Simple graphics and logos made with Canva",
+          "tags": ["graphic-design", "canva"],
+          "capacity": "1 session a week",
+          "status": "active"
+        }
+      ],
+      "needs": [
+        {
+          "id": "66666666-6666-4666-8666-666666666602",
+          "profileId": "66666666-6666-4666-8666-666666666666",
+          "description": "Mentorship and feedback on my project code",
+          "tags": ["mentoring", "web-development", "code-review"],
+          "status": "open",
+          "aiSuggested": false
+        }
+      ]
+    },
+    {
+      "profile": {
+        "id": "77777777-7777-4777-8777-777777777777",
+        "displayName": "Marco Reyes",
+        "bio": "Senior developer who enjoys mentoring juniors.",
+        "careerBackground": "Eight years building web apps.",
+        "currentSituation": "Starting a small consultancy on the side.",
+        "careerGoal": "Grow a consultancy while staying hands-on with code",
+        "availability": "Saturday mornings",
+        "languages": ["en", "fil"],
+        "countryCode": "PH",
+        "locale": "en-PH",
+        "discoverable": true,
+        "isDemo": true
+      },
+      "offers": [
+        {
+          "id": "77777777-7777-4777-8777-777777777701",
+          "profileId": "77777777-7777-4777-8777-777777777777",
+          "description": "Code review and mentoring for junior web developers",
+          "tags": ["mentoring", "web-development", "code-review"],
+          "capacity": "2 sessions a month",
+          "status": "active"
+        }
+      ],
+      "needs": [
+        {
+          "id": "77777777-7777-4777-8777-777777777702",
+          "profileId": "77777777-7777-4777-8777-777777777777",
+          "description": "A simple logo for my new consultancy",
+          "tags": ["graphic-design"],
+          "status": "open",
+          "aiSuggested": false
+        }
+      ]
+    },
+    {
+      "profile": {
+        "id": "88888888-8888-4888-8888-888888888888",
+        "displayName": "Aira Villanueva",
+        "bio": "Customer support specialist moving toward tech roles.",
+        "careerBackground": "Five years in support, some hiring-assistant work.",
+        "currentSituation": "Learning web basics while helping others interview.",
+        "careerGoal": "Move from support into a technical role",
+        "availability": "weekday evenings",
+        "languages": ["fil", "en"],
+        "countryCode": "PH",
+        "locale": "en-PH",
+        "discoverable": true,
+        "isDemo": true
+      },
+      "offers": [
+        {
+          "id": "88888888-8888-4888-8888-888888888801",
+          "profileId": "88888888-8888-4888-8888-888888888888",
+          "description": "Interview practice drawing on hiring-assistant experience",
+          "tags": ["interview-practice", "english"],
+          "capacity": "1 session a week",
+          "status": "active"
+        }
+      ],
+      "needs": [
+        {
+          "id": "88888888-8888-4888-8888-888888888802",
+          "profileId": "88888888-8888-4888-8888-888888888888",
+          "description": "Technical guidance on web development basics",
+          "tags": ["web-development", "career-transition"],
+          "status": "open",
+          "aiSuggested": false
+        }
+      ]
+    },
+    {
+      "profile": {
+        "id": "99999999-9999-4999-8999-999999999999",
+        "displayName": "Paolo Gutierrez",
+        "bio": "Freelance video editor for online sellers.",
+        "careerBackground": "Three years editing product and short-form video.",
+        "currentSituation": "Undercharging and unsure how to raise rates.",
+        "careerGoal": "Charge fair rates for video work",
+        "availability": "flexible",
+        "languages": ["fil"],
+        "countryCode": "PH",
+        "locale": "en-PH",
+        "discoverable": true,
+        "isDemo": true
+      },
+      "offers": [
+        {
+          "id": "99999999-9999-4999-8999-999999999901",
+          "profileId": "99999999-9999-4999-8999-999999999999",
+          "description": "Short-form video editing for service businesses",
+          "tags": ["video-editing", "short-form-video"],
+          "capacity": "1 project a month",
+          "status": "active"
+        }
+      ],
+      "needs": [
+        {
+          "id": "99999999-9999-4999-8999-999999999902",
+          "profileId": "99999999-9999-4999-8999-999999999999",
+          "description": "Advice on pricing my video work fairly",
+          "tags": ["pricing", "freelancing"],
+          "status": "open",
+          "aiSuggested": false
+        }
+      ]
+    },
+    {
+      "profile": {
+        "id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+        "displayName": "Nadia Cruz",
+        "bio": "Data analyst who keeps her profile private.",
+        "careerBackground": "Six years in analytics.",
+        "currentSituation": "Not looking to be discovered right now.",
+        "careerGoal": "Stay sharp while on a career break",
+        "availability": "none",
+        "languages": ["en"],
+        "countryCode": "PH",
+        "locale": "en-PH",
+        "discoverable": false,
+        "isDemo": true
+      },
+      "offers": [
+        {
+          "id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1",
+          "profileId": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "description": "Advanced Python and data analytics coaching",
+          "tags": ["data-analytics", "python"],
+          "capacity": "1 session a month",
+          "status": "active"
+        }
+      ],
+      "needs": [
+        {
+          "id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2",
+          "profileId": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+          "description": "Accountability check-ins during my career break",
+          "tags": ["accountability"],
+          "status": "open",
+          "aiSuggested": false
+        }
+      ]
+    },
+    {
+      "profile": {
+        "id": "b2b2b2b2-b2b2-4b2b-8b2b-b2b2b2b2b2b2",
+        "displayName": "Diego Fernandez",
+        "bio": "Mobile developer building an inventory app for sari-sari stores.",
+        "careerBackground": "Three years shipping Android apps.",
+        "currentSituation": "Solo builder with a working prototype.",
+        "careerGoal": "Launch my inventory app with the right co-founder",
+        "availability": "weekday evenings",
+        "languages": ["fil", "en"],
+        "countryCode": "PH",
+        "locale": "en-PH",
+        "discoverable": true,
+        "contactMethod": "diego.fernandez@example.com",
+        "isDemo": true
+      },
+      "offers": [
+        {
+          "id": "b2b2b2b2-b2b2-4b2b-8b2b-b2b2b2b2b201",
+          "profileId": "b2b2b2b2-b2b2-4b2b-8b2b-b2b2b2b2b2b2",
+          "description": "Build a working mobile MVP for your startup idea",
+          "tags": ["mobile-development", "mvp-building"],
+          "capacity": "1 project at a time",
+          "status": "active"
+        }
+      ],
+      "needs": [
+        {
+          "id": "b2b2b2b2-b2b2-4b2b-8b2b-b2b2b2b2b202",
+          "profileId": "b2b2b2b2-b2b2-4b2b-8b2b-b2b2b2b2b2b2",
+          "description": "A business-minded co-founder for my sari-sari store app",
+          "tags": ["business-development", "sales"],
+          "goalContext": "Finding a co-founder to launch with",
+          "status": "open",
+          "aiSuggested": false
+        },
+        {
+          "id": "b2b2b2b2-b2b2-4b2b-8b2b-b2b2b2b2b203",
+          "profileId": "b2b2b2b2-b2b2-4b2b-8b2b-b2b2b2b2b2b2",
+          "description": "Feedback on my pitch deck and fundraising readiness",
+          "tags": ["pitch-feedback", "fundraising"],
+          "status": "open",
+          "aiSuggested": false
+        },
+        {
+          "id": "b2b2b2b2-b2b2-4b2b-8b2b-b2b2b2b2b204",
+          "profileId": "b2b2b2b2-b2b2-4b2b-8b2b-b2b2b2b2b2b2",
+          "description": "Early users for customer discovery interviews",
+          "tags": ["customer-discovery", "user-interviews"],
+          "status": "open",
+          "aiSuggested": false
+        }
+      ]
+    },
+    {
+      "profile": {
+        "id": "c3c3c3c3-c3c3-4c3c-8c3c-c3c3c3c3c3c3",
+        "displayName": "Katrina Uy",
+        "bio": "Former FMCG sales rep who loves talking to customers.",
+        "careerBackground": "Five years selling to sari-sari stores.",
+        "currentSituation": "Between roles and exploring co-founding.",
+        "careerGoal": "Co-found a startup serving small retailers",
+        "availability": "flexible",
+        "languages": ["fil", "en"],
+        "countryCode": "PH",
+        "locale": "en-PH",
+        "discoverable": true,
+        "contactMethod": "katrina.uy@example.com",
+        "isDemo": true
+      },
+      "offers": [
+        {
+          "id": "c3c3c3c3-c3c3-4c3c-8c3c-c3c3c3c3c301",
+          "profileId": "c3c3c3c3-c3c3-4c3c-8c3c-c3c3c3c3c3c3",
+          "description": "Run customer discovery interviews and early sales outreach",
+          "tags": ["customer-discovery", "sales", "business-development"],
+          "capacity": "2 sessions a week",
+          "status": "active"
+        }
+      ],
+      "needs": [
+        {
+          "id": "c3c3c3c3-c3c3-4c3c-8c3c-c3c3c3c3c302",
+          "profileId": "c3c3c3c3-c3c3-4c3c-8c3c-c3c3c3c3c3c3",
+          "description": "A technical co-founder to build our MVP",
+          "tags": ["mobile-development", "mvp-building"],
+          "goalContext": "Finding a technical co-founder",
+          "status": "open",
+          "aiSuggested": false
+        }
+      ]
+    },
+    {
+      "profile": {
+        "id": "d4d4d4d4-d4d4-4d4d-8d4d-d4d4d4d4d4d4",
+        "displayName": "Enrico Salazar",
+        "bio": "Founded a small logistics startup and ran it for four years.",
+        "careerBackground": "Startup founder, now advising early teams.",
+        "currentSituation": "Between ventures and giving back.",
+        "careerGoal": "Help new founders avoid my early mistakes",
+        "availability": "Saturday mornings",
+        "languages": ["en", "fil"],
+        "countryCode": "PH",
+        "locale": "en-PH",
+        "discoverable": true,
+        "isDemo": true
+      },
+      "offers": [
+        {
+          "id": "d4d4d4d4-d4d4-4d4d-8d4d-d4d4d4d4d401",
+          "profileId": "d4d4d4d4-d4d4-4d4d-8d4d-d4d4d4d4d4d4",
+          "description": "Pitch deck critiques and fundraising readiness reviews",
+          "tags": ["pitch-feedback", "fundraising", "business-model"],
+          "capacity": "2 sessions a month",
+          "status": "active"
+        }
+      ],
+      "needs": [
+        {
+          "id": "d4d4d4d4-d4d4-4d4d-8d4d-d4d4d4d4d402",
+          "profileId": "d4d4d4d4-d4d4-4d4d-8d4d-d4d4d4d4d4d4",
+          "description": "A technical advisor for architecture reviews",
+          "tags": ["technical-advisor", "system-design"],
+          "status": "open",
+          "aiSuggested": false
+        }
+      ]
+    },
+    {
+      "profile": {
+        "id": "e5e5e5e5-e5e5-4e5e-8e5e-e5e5e5e5e5e5",
+        "displayName": "Grace Ocampo",
+        "bio": "Sari-sari store owner for twelve years in Quezon City.",
+        "careerBackground": "Retail and bookkeeping by hand.",
+        "currentSituation": "Curious about apps for her store.",
+        "careerGoal": "Run her store with less paperwork",
+        "availability": "Sunday afternoons",
+        "languages": ["fil"],
+        "countryCode": "PH",
+        "locale": "en-PH",
+        "discoverable": true,
+        "isDemo": true
+      },
+      "offers": [
+        {
+          "id": "e5e5e5e5-e5e5-4e5e-8e5e-e5e5e5e5e501",
+          "profileId": "e5e5e5e5-e5e5-4e5e-8e5e-e5e5e5e5e5e5",
+          "description": "Share real shop-floor experience for product interviews",
+          "tags": ["customer-discovery", "retail", "user-interviews"],
+          "capacity": "1 session a week",
+          "status": "active"
+        }
+      ],
+      "needs": [
+        {
+          "id": "e5e5e5e5-e5e5-4e5e-8e5e-e5e5e5e5e502",
+          "profileId": "e5e5e5e5-e5e5-4e5e-8e5e-e5e5e5e5e5e5",
+          "description": "Help setting up simple bookkeeping for my store",
+          "tags": ["spreadsheets", "bookkeeping"],
+          "status": "open",
+          "aiSuggested": false
+        }
+      ]
+    }
+  ]
+}
