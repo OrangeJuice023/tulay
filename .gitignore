@@ -1,9 +1,7 @@
 ﻿node_modules
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*
+!.env.example
 .DS_Store
 *.log
 .vercel
@@ -12,7 +10,22 @@ out
 build
 dist
 .turbo
+*.tsbuildinfo
+coverage
+playwright-report
+test-results
+
+# Data: only fixtures and READMEs are committed
 data/raw/*
 data/processed/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
+
+# Supabase local state
+supabase/.branches
+supabase/.temp
+
+# Large or source-design binaries belong outside Git unless agreed
+*.psd
+*.sketch
+*.zip
