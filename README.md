@@ -1,105 +1,133 @@
-﻿# Tulay
+# Tulay
 
 **"Your next career move shouldn't be a solo mission."**
 
-Tulay ("bridge" in Filipino) is a community-powered AI agent for freelancers, career shifters and
-independent workers, starting in the Philippines. You say what you are trying to achieve and what
-specific help you need. Tulay finds real members whose offers match your need (and who need
-something you can offer), asks both of you before making an introduction, helps you agree on a
-small concrete collaboration, and records whether it helped.
+*People. Opportunities. Progress.*
 
-Product direction (canonical): `docs/PROJECT_DIRECTION.md`.
+<img src="apps/web/public/brand/mascot/arko-hero.png" width="140" alt="Arko, Tulay's bridge-building companion">
 
-Built for the Meta Global AI Developer Hackathon (Oct 26 to Nov 4, 2026).
+Tulay ("bridge" in Filipino) is a community-powered career-mobility platform for
+freelancers, career shifters and independent workers, Philippines first. You
+state a goal and the specific help you need. Tulay finds people whose skills
+complement yours, asks **both** of you before any introduction, helps you agree
+on one concrete collaboration, and records whether it helped.
 
-## Status (2026-10-28)
+Built for the Meta Global AI Developer Hackathon (Oct 26 – Nov 4, 2026).
 
-Early scaffold. Honest summary:
+## Contents
 
-| Area | State |
-| --- | --- |
-| Web app (`apps/web`) | Next.js pages for home, onboarding, find help, collaborations, profile. Static placeholders: forms do not submit, "Demo User" cards are hard-coded. |
-| Shared schemas (`packages/shared`) | Zod schemas for profile, extracted goal, match explanation. Not imported by the web app yet. |
-| AI layer (`services/ai`) | Deterministic demo provider. The Meta provider is a stub that returns demo output. |
-| Database (`supabase/`) | No migrations yet. |
-| Tests | None configured. |
+- [The three pathways](#the-three-pathways)
+- [How one journey works](#how-one-journey-works)
+- [Career intelligence](#career-intelligence)
+- [Try the demo](#try-the-demo)
+- [Status and limitations](#status-and-limitations)
+- [Roadmap](#roadmap)
+- [Docs](#docs)
+- [License](#license)
 
-See `planning/NEXT_STEPS.md` and `planning/KNOWN_ISSUES.md`.
+## The three pathways
 
-## Setup
+| Pathway | Who it's for | What happens |
+| --- | --- | --- |
+| **Change careers** | BPO professionals moving into tech, designers going into product, anyone navigating a transition | Map your current role to target roles, see transferable skills and areas to develop, meet people who made the move |
+| **Grow as a freelancer** | Designers, developers, editors, independents trading skills | Pricing and proposal advice, portfolio feedback, skill swaps with people who need what you offer |
+| **Build something together** | Aspiring founders and collaborators | Co-founder matching, pitch feedback, early users, domain experts |
 
-Prerequisites: Node.js 20 or later (verified with 24.11.1), npm.
+All three share one matching engine and one consent lifecycle — not three apps.
+
+## How one journey works
+
+```mermaid
+flowchart LR
+    NEED[State a need] --> MATCH[Meet one person<br/>who can help]
+    MATCH --> CONSENT[Mutual consent]
+    CONSENT --> INTRO[Introduction]
+    INTRO --> COLLAB[One next step<br/>together]
+    COLLAB --> OUTCOME[Record whether<br/>it helped]
+```
+
+A full pass: pick a path → describe your situation (Muse Spark structures it,
+you confirm) → browse complementary people one at a time with reciprocity shown
+→ review and send an introduction request → the other person accepts or
+declines (simulated and labeled in the demo) → agree on a next step → record
+the outcome. Saved collaborations persist in your browser; nothing is sent to
+anyone in demo mode.
+
+## Career intelligence
+
+The Change-careers path includes a Landas-inspired career map: 8 curated roles
+with real skill relationships (adapted from the Landas catalog), adjacent-role
+suggestions with stated reasons, transferable-skill confirmation, and
+to-develop ideas presented as possibilities — never as verified gaps. Your
+confirmed direction enriches matching (direction keywords plus a
+career-relevance reason on each match) through the existing engine. Details in
+[`docs/decisions/0002-landas-knowledge-transfer.md`](docs/decisions/0002-landas-knowledge-transfer.md).
+
+## Try the demo
+
+Prerequisites: Node.js 20+ and npm.
 
 ```bash
 cd apps/web
 npm install
-cp ../../.env.example .env.local   # optional; without it the app runs in demo mode
-npm run dev                         # http://localhost:3000
+npm run dev    # http://localhost:3000
 ```
 
-## Environment variables
+Then open http://localhost:3000/demo, or start at the landing page. No sign-up,
+no database, no API key needed — without credentials the app runs in labeled
+demo mode with 14 fictional members.
 
-Defined in `.env.example` (placeholders only; never commit real values).
+<details>
+<summary>Environment variables (all optional for the demo)</summary>
 
-| Variable | Where it is used | Notes |
-| --- | --- | --- |
-| `NEXT_PUBLIC_SUPABASE_URL` | browser + server | Public project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | browser + server | Public anon key; safe only with RLS on every table |
-| `SUPABASE_SERVICE_ROLE_KEY` | server only | Bypasses RLS. Never import in client code. |
-| `MODEL_API_KEY` | server only | Meta Model API key (canonical name; never commit it) |
-| `META_MODEL_API_KEY` | server only | Legacy fallback for the same key |
-| `META_MODEL_API_URL` | server only | API base URL (default `https://api.meta.ai/v1`) |
-| `META_MODEL_MODEL` | server only | Model id (default `muse-spark-1.3`) |
-| `AI_PROVIDER` | server only | `demo` (default) or `meta` (used only when a key is set) |
-| `NEXT_PUBLIC_APP_URL` | browser + server | Base URL |
+See `.env.example` (placeholders only; never commit real values). Without them:
+deterministic `DemoProvider` for AI text and synthetic fixtures for people.
+Set `AI_PROVIDER=meta` plus `MODEL_API_KEY` in `apps/web/.env.local` for live
+Muse Spark calls; `/api/health` reports which provider is active.
 
-**Demo mode:** if `AI_PROVIDER` is not `meta` or no API key is set, the AI layer uses the
-deterministic `DemoProvider` (no network calls). If Supabase variables are missing, the app
-reads synthetic people from `data/fixtures/`. Demo mode is always labelled in the UI.
+</details>
 
-**Meta mode:** set `AI_PROVIDER=meta` and `MODEL_API_KEY` in `apps/web/.env.local` (server
-only; never commit it) and restart. `/api/health` reports the live selection. The provider
-is verified with mocked HTTP only (`npm test` covers request shape, auth, all five
-operations, and every failure class); no live API request has been performed yet. Details
-and provenance: `docs/AI_AGENT_DESIGN.md`.
+<details>
+<summary>Commands and checks</summary>
 
-## Commands
+```bash
+npm test            # vitest, from the repo root
+npm run lint        # eslint (web workspace)
+npm run typecheck   # tsc --noEmit, all workspaces
+npm run build       # production build (web workspace)
+```
 
-Run from `apps/web/`:
+Current results: 146/146 tests, clean lint and typecheck, production build
+green. `next build` defaults to Turbopack; if your sandbox blocks its worker
+ports, `npx next build --webpack` in `apps/web` is the verified fallback.
 
-| Command | Purpose |
-| --- | --- |
-| `npm run dev` | Development server |
-| `npm run lint` | ESLint |
-| `npx tsc --noEmit` | Type check |
-| `npm run build` | Production build |
+</details>
 
-No test runner yet; adding one is in `planning/NEXT_STEPS.md`.
+## Status and limitations
 
-## Demo
+Working in this prototype: landing, guided journey with career mapping,
+one-at-a-time reciprocal matching, introduction requests, simulated
+accept/decline consent, collaboration next steps, outcome recording, and
+browser-local persistence with demo reset.
 
-The demo script is not ready yet. Target flow (see `docs/PRODUCT_SPEC.md`): a career shifter
-types a goal → Tulay extracts the specific need → shows two or three labelled demo members with a
-complementary offer and a short explanation → the user edits and sends an introduction request →
-the other member accepts → both agree on one concrete next step → the user marks it helpful.
+Honest limits: no real users (all members are synthetic and labeled), no
+backend or auth (localStorage only), no live model calls without a key, no
+Android app yet, Turbopack build needs normal (non-sandboxed) networking. No
+screenshots or demo video are checked in; run it locally to see it.
 
-Every demo beat must answer: does this help someone make their next career move with other
-people, rather than having to do it alone?
+## Roadmap
 
-## Documentation
+- Live Muse Spark verification against the Meta Model API.
+- Supabase persistence and authentication (schema-ready contracts, RLS planned).
+- Native Android app via Expo, reusing `@tulay/shared` contracts.
+- Richer role catalog if the career map proves its worth with judges.
 
-| Doc | Purpose |
-| --- | --- |
-| `AGENTS.md` | Rules for every coding agent (canonical) |
-| `docs/AGENT_WORKFLOW.md` | Claude Code / Kilo / Muse Code lanes and hand-offs |
-| `docs/PROJECT_DIRECTION.md` | Product north star (canonical), problem, users, scope, success criteria |
-| `docs/PRODUCT_SPEC.md` | User journeys and requirements |
-| `docs/TECH_STACK.md`, `docs/ARCHITECTURE.md` | Stack choices, system boundaries |
-| `docs/DATA_MODEL.md`, `docs/AI_AGENT_DESIGN.md` | Entities, model responsibilities and safety |
-| `docs/SECURITY_AND_PRIVACY.md` | Access control, consent, secrets |
-| `docs/RESEARCH_PROTOCOL.md`, `research/` | How research is done and where it lives |
-| `docs/COMMIT_CONVENTIONS.md` | Commits and Git workflow |
-| `planning/` | Next steps, MVP checklist, timeline, known issues |
+## Docs
+
+Product north star: [`docs/PROJECT_DIRECTION.md`](docs/PROJECT_DIRECTION.md) ·
+Brand system: [`docs/brand/`](docs/brand/) · Agent rules: [`AGENTS.md`](AGENTS.md) ·
+Architecture, data model, AI design, security, research protocol: `docs/` ·
+Decisions: `docs/decisions/` · Research: `research/`
 
 ## License
 

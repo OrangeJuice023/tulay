@@ -1,3 +1,5 @@
+import Link from 'next/link'
+import { Arko } from '@/components/Arko'
 import { LogoMark } from '@/components/Logo'
 import { ArrowRight, Briefcase, Leaf, Rocket } from '@/components/icons'
 import { LinkButton } from '@/components/ui'
@@ -45,7 +47,10 @@ export default function Home() {
             Demo: {stats.members} fictional community members. No sign-up, nothing leaves your browser.
           </p>
         </div>
-        <BridgeScene />
+        <div className="relative">
+          <BridgeScene />
+          <Arko state="idle" size={72} className="pointer-events-none absolute right-4 bottom-3 sm:right-8" />
+        </div>
       </section>
 
       <section id="how-it-works" className="scroll-mt-20 border-y border-line/70 bg-white/60">
@@ -71,12 +76,14 @@ export default function Home() {
         <p className="mt-2 text-muted">Pick a starting point. Every path leads to people, not a chatbot.</p>
         <ul className="mt-8 grid gap-4 md:grid-cols-3">
           {PATHS.map(({ Icon, title, body, tile }) => (
-            <li key={title} className={`rounded-[var(--radius-card)] p-6 ${tile}`}>
-              <span className="grid h-12 w-12 place-items-center rounded-full bg-white text-forest shadow-sm">
-                <Icon className="h-6 w-6" />
-              </span>
-              <h3 className="mt-4 text-lg font-bold text-ink">{title}</h3>
-              <p className="mt-1 text-sm text-muted">{body}</p>
+            <li key={title} className={`rounded-[var(--radius-card)] p-6 transition hover:ring-2 hover:ring-forest/40 ${tile}`}>
+              <Link href="/start" aria-label={`${title} — find my people`} className="block rounded-[inherit] outline-none focus-visible:ring-2 focus-visible:ring-forest">
+                <span className="grid h-12 w-12 place-items-center rounded-full bg-white text-forest shadow-sm">
+                  <Icon className="h-6 w-6" />
+                </span>
+                <h3 className="mt-4 text-lg font-bold text-ink">{title}</h3>
+                <p className="mt-1 text-sm text-muted">{body}</p>
+              </Link>
             </li>
           ))}
         </ul>

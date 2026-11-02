@@ -27,6 +27,7 @@ import {
 import { DEMO_SEEKER_ID, PATHS, getPath, type PathId } from '@/lib/paths'
 import { saveCollaboration } from '@/lib/demo-store'
 import { LinkPending } from '@/components/LinkPending'
+import { Arko } from '@/components/Arko'
 import { MatchCard } from '@/components/MatchCard'
 import { PathCard } from '@/components/PathCard'
 import { ArrowLeft, ArrowRight, Check } from '@/components/icons'
@@ -111,6 +112,9 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
   const [careerMap, setCareerMap] = useState<CareerMapResult | null>(null)
   const [mapError, setMapError] = useState<string | null>(null)
   const [mapping, setMapping] = useState(false)
+  const [typing, setTyping] = useState(false)
+  const typingTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
   const [directionId, setDirectionId] = useState<string | null>(null)
   const [transferableKept, setTransferableKept] = useState<string[]>([])
   const [developingKept, setDevelopingKept] = useState<string[]>([])
@@ -222,6 +226,16 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
       } else setMatchError(result.error)
     })
   }
+
+  function noteTyping() {
+    setTyping(true)
+    if (typingTimer.current) clearTimeout(typingTimer.current)
+    typingTimer.current = setTimeout(() => setTyping(false), 1500)
+  }
+
+  useEffect(() => () => {
+    if (typingTimer.current) clearTimeout(typingTimer.current)
+  }, [])
 
   function runAssist() {
     setAssist(null)
@@ -523,7 +537,10 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
           title="What's your next move?"
           lead="Choose a starting point. It only shapes the questions and suggestions; you can change it later."
         >
-          <div className="grid gap-3">
+          <div className="flex justify-center">
+          <Arko state="curious" size={64} />
+        </div>
+        <div className="grid gap-3">
             {PATHS.map((option) => (
               <PathCard key={option.id} path={option} selected={pathId === option.id} onSelect={() => choosePath(option.id)} />
             ))}
@@ -613,13 +630,21 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
               error={errors.displayName}
               onChange={(e) => setForm({ ...form, displayName: e.target.value })}
             />
+            <div className="flex h-12 items-center gap-2" aria-hidden="true">
+              {typing && (
+                <>
+                  <Arko state="curious" size={44} />
+                  <p className="text-sm text-muted">Arko is thinking with you…</p>
+                </>
+              )}
+            </div>
             <TextAreaField
               id="field-goal"
               label={path.goalPrompt}
               placeholder={path.sample.goal}
               value={form.goal}
               error={errors.goal}
-              onChange={(e) => setForm({ ...form, goal: e.target.value })}
+              onChange={(e) => { setForm({ ...form, goal: e.target.value }); noteTyping() }}
             />
             {pathId === 'career' && (
               <div className="rounded-[var(--radius-card)] border border-line bg-white/70 p-5">
@@ -659,8 +684,8 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
                     {mapError}
                   </p>
                 )}
-                {mapping && <div className="mt-3"><LoadingState label="Mapping career options…" /></div>}
-                {careerMap && directionId && !mapping && (
+                {mapping && <div className="mt-3 flex items-center gap-3"><Arko state="searching" size={56} /><LoadingState label="Mapping career options…" /></div>}
+                {careerMap && directionId && !mapping && !careerConfirmed && (
                   <div className="mt-4 space-y-4 rounded-2xl bg-ivory p-4">
                     <p className="text-sm text-muted">
                       {careerMap.currentRole
@@ -788,9 +813,14 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
                       {careerConfirmed.confirmedSkills.length} skills confirmed ·{' '}
                       {careerConfirmed.developingSkills.length} to develop. This shapes who you&apos;ll meet.
                     </p>
-                    <button type="button" onClick={clearCareer} className="mt-2 text-sm font-semibold text-forest underline">
-                      Remove direction
-                    </button>
+                    <span className="mt-2 inline-flex gap-4">
+                      <button type="button" onClick={() => setCareerConfirmed(null)} className="text-sm font-semibold text-forest underline">
+                        Adjust mapping
+                      </button>
+                      <button type="button" onClick={clearCareer} className="text-sm font-semibold text-forest underline">
+                        Remove direction
+                      </button>
+                    </span>
                   </div>
                 )}
               </div>
@@ -801,7 +831,7 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
               placeholder={path.sample.need}
               value={form.needText}
               error={errors.needText}
-              onChange={(e) => setForm({ ...form, needText: e.target.value })}
+              onChange={(e) => { setForm({ ...form, needText: e.target.value }); noteTyping() }}
             />
             <TagPicker
               legend="Which skills would help with that?"
@@ -865,6 +895,21 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
           {criteriaSource === 'as-written' && (
             <p className="text-sm text-muted">Muse couldn&apos;t be reached, so we&apos;re using your words as-is.</p>
           )}
+          {careerConfirmed && confirmedRole && (
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-2xl bg-mist px-4 py-3">
+              <p className="text-sm text-forest-dark">
+                Searching for your move toward <strong>{confirmedRole.title}</strong>.
+              </p>
+              <span className="ml-auto inline-flex gap-3">
+                <button type="button" onClick={() => setStep('intake')} className="text-sm font-semibold text-forest underline">
+                  Adjust
+                </button>
+                <button type="button" onClick={clearCareer} className="text-sm font-semibold text-forest underline">
+                  Remove
+                </button>
+              </span>
+            </div>
+          )}
           {matchError && (
             <Notice tone="error" title="Something went wrong">
               {matchError}{' '}
@@ -874,6 +919,11 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
             </Notice>
           )}
           {!matchError && (pending || !session) && <LoadingState label="Matching your need with what members offer…" />}
+          {!matchError && (pending || !session) && (
+            <div className="flex justify-center">
+              <Arko state="searching" size={72} />
+            </div>
+          )}
           {session && !pending && !current && (
             <EmptyState
               title="No more people for this need"
@@ -883,16 +933,24 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
                 </Button>
               }
             >
-              Tulay never fills this list with invented people. Try different skills, or describe your need in
-              broader words.
+              <div className="flex flex-col items-center gap-3 text-center">
+                <Arko state="empty" size={72} />
+                <p>
+                  Tulay never fills this list with invented people. Try different skills, or describe your need
+                  in broader words.
+                </p>
+              </div>
             </EmptyState>
           )}
           {session && !pending && current && (
             <>
-              <p className="text-sm text-muted" aria-live="polite">
-                Showing {remaining} {remaining === 1 ? 'person' : 'people'} who can help, one at a time.
-                {remaining > 1 && ' Skip to meet the next person.'}
-              </p>
+              <div className="flex items-center gap-3">
+                <Arko state="idle" size={48} />
+                <p className="text-sm text-muted" aria-live="polite">
+                  Showing {remaining} {remaining === 1 ? 'person' : 'people'} who can help, one at a time.
+                  {remaining > 1 && ' Skip to meet the next person.'}
+                </p>
+              </div>
               <MatchCard match={current} onRequest={askForIntro} />
               <div>
                 <Button variant="quiet" onClick={skip} disabled={pending}>
@@ -976,7 +1034,10 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
           </Card>
           {introduction.status === 'pending' ? (
             <>
-              <Notice tone="demo" title={`${partner} is a fictional demo member, so no message was sent`}>
+              <div className="flex justify-center">
+            <Arko state="pending" size={72} />
+          </div>
+          <Notice tone="demo" title={`${partner} is a fictional demo member, so no message was sent`}>
                 To continue the demo, choose how {partner} would respond. In the live product, this step happens
                 when the real person replies.
               </Notice>
@@ -1148,6 +1209,9 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
 
       {step === 'done' && selected && (
         <Section headingRef={headingRef} eyebrow="Completed" title="You didn't do this alone." lead="One act of help, completed and recorded.">
+          <div className="flex justify-center">
+            <Arko state="celebration" size={88} label="Arko celebrates your completed collaboration" />
+          </div>
           <Card className="space-y-3">
             <SummaryRow label="You asked for">{need?.description}</SummaryRow>
             <SummaryRow label="Helped by">
@@ -1200,6 +1264,9 @@ function Progress({ current }: { current: number }) {
           </li>
         ))}
       </ol>
+      <p aria-hidden="true" className="mt-2 text-xs font-semibold text-forest sm:hidden">
+        Step {current + 1} of {STAGES.length}: {STAGES[current]}
+      </p>
     </nav>
   )
 }
