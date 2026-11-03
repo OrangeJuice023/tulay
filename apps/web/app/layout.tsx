@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Wordmark } from '@/components/Logo'
 import { buttonClass } from '@/components/ui'
 import { LinkPending } from '@/components/LinkPending'
+import { DesktopNav, MobileNav } from '@/components/MobileNav'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' })
 
@@ -37,14 +38,8 @@ export default function RootLayout({
             <Link href="/" aria-label="Tulay home" className="rounded-full">
               <Wordmark />
             </Link>
-            <nav aria-label="Main" className="flex items-center gap-1 sm:gap-2">
-              <Link href="/#how-it-works" className="hidden min-h-11 items-center rounded-full px-3 text-sm font-medium text-ink hover:bg-mist sm:inline-flex">
-                How it works
-              </Link>
-              <Link href="/collaborations" className="inline-flex min-h-11 items-center gap-2 rounded-full px-3 text-sm font-medium whitespace-nowrap text-ink hover:bg-mist">
-                My collaborations
-                <LinkPending />
-              </Link>
+            <DesktopNav />
+            <div className="flex items-center gap-1">
               {/* Wrapper hides it on phones: buttonClass's inline-flex would override `hidden`. */}
               <span className="hidden sm:block">
                 <Link href="/start" className={buttonClass('primary', 'md')}>
@@ -52,7 +47,8 @@ export default function RootLayout({
                   <LinkPending />
                 </Link>
               </span>
-            </nav>
+              <MobileNav />
+            </div>
           </div>
         </header>
         <main id="main" className="flex-1">
