@@ -17,7 +17,7 @@ export async function generateMetadata({
   const { slug } = await params
   const story = getStory(slug)
   return {
-    title: story ? `${story.persona} — community story` : 'Community story',
+    title: story ? `${story.persona}: a community story` : 'Community story',
     description: story
       ? `An illustrative demo story: ${story.context}. Challenge, connection, collaboration, outcome.`
       : 'An illustrative demo story from the Tulay community.',
@@ -87,7 +87,7 @@ export default async function StoryDetailPage({
         <div>
           <p className="font-semibold text-ink">{HELPED_LABEL[story.helped]}</p>
           <p className="mt-1 text-sm text-muted">
-            Outcomes are recorded by the collaborators themselves — yes, partly, or not yet. No
+            Outcomes are recorded by the collaborators themselves: yes, partly, or not yet. No
             outcome is ever invented or embellished.
           </p>
         </div>

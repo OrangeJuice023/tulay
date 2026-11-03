@@ -6,7 +6,7 @@ import { ArrowRight, Briefcase, Leaf, Rocket } from '@/components/icons'
 export const metadata: Metadata = {
   title: 'Explore studios',
   description:
-    'Meet Career Studio, Freelance Studio and Venture Studio — three doors into one shared human-connection engine.',
+    'Meet Career Studio, Freelance Studio and Venture Studio: three doors into one shared human-connection engine.',
 }
 
 const STUDIOS = [
@@ -15,7 +15,7 @@ const STUDIOS = [
     name: 'Career Studio',
     audience: 'For career changers, job seekers and the quietly restless.',
     purpose:
-      'Map where you are to where you could go — then meet people who fit the direction.',
+      'Map where you are to where you could go, then meet people who fit the direction.',
     capabilities: [
       'Explore industries and the roles inside them',
       'Career Map: your role, adjacent roles, and the skills between them',
@@ -23,7 +23,7 @@ const STUDIOS = [
       'Transition Planner: checkable milestones that lead to people',
     ],
     engine:
-      'Every direction ends the same way: a reciprocal match with someone who can help — and whom you can help back.',
+      'Every direction ends the same way: a reciprocal match with someone who can help you, and who you can help in return.',
     status: 'live' as const,
     statusNote: 'Career mapping and career-intelligent matching are live in the demo journey today.',
     cta: { href: '/start', label: 'Try career mapping in the demo' },
@@ -34,7 +34,7 @@ const STUDIOS = [
     name: 'Freelance Studio',
     audience: 'For freelancers and independents finding steadier work.',
     purpose:
-      'Turn what you can do into services, proposals and clients — or trade skills peer to peer.',
+      'Turn what you can do into services, proposals and clients, or trade skills peer to peer.',
     capabilities: [
       'My Services: structured offers of what you do best',
       'Proposal Studio: draft and improve real proposals',
@@ -45,7 +45,7 @@ const STUDIOS = [
       'Every service, proposal and board post resolves to the same engine: a reciprocal introduction between two people.',
     status: 'preview' as const,
     statusNote:
-      'Freelance tools are in design — this is a preview of what is planned. The matching underneath already works.',
+      'Freelance tools are in design. This is a preview of what is planned. The matching underneath already works in the demo journey.',
     cta: { href: '/start', label: 'Try matching in the demo journey' },
     Icon: Briefcase,
   },
@@ -57,14 +57,14 @@ const STUDIOS = [
     capabilities: [
       'Idea Workshop: problem, customer, solution and edge',
       'Customer research from sources you provide, quoted and dated',
-      'Build Your Team: role needs matched to real collaborators',
+      'Build Your Team: role needs that convert to reciprocal matches',
       'Launch Planner: milestones from first interview to first pilot',
     ],
     engine:
-      'Research informs the idea, but people build the venture — team needs become reciprocal matches in the same engine.',
+      'Research informs the idea, but people build the venture. Team needs become reciprocal matches in the same engine.',
     status: 'preview' as const,
     statusNote:
-      'Venture tools are in design — this is a preview of what is planned. The matching underneath already works.',
+      'Venture tools are in design. This is a preview of what is planned. The matching underneath already works in the demo journey.',
     cta: { href: '/start', label: 'Try matching in the demo journey' },
     Icon: Rocket,
   },
@@ -78,7 +78,7 @@ export default function ExplorePage() {
         Three studios, one bridge.
       </h1>
       <p className="mt-4 max-w-2xl text-lg text-muted">
-        Career, freelance and venture work look different — but nobody should navigate them alone.
+        Career, freelance and venture work look different, but nobody should navigate them alone.
         Each studio has its own tools and workflow. All three share Tulay&apos;s reciprocal
         people-matching and collaboration engine: introductions with consent, agreed next steps,
         and recorded outcomes.
@@ -101,7 +101,7 @@ export default function ExplorePage() {
                     studio.status === 'live' ? 'text-forest' : 'text-coral-ink'
                   }`}
                 >
-                  {studio.status === 'live' ? 'Live in the demo' : 'Preview — in design'}
+                  {studio.status === 'live' ? 'Live in the demo' : 'Preview: in design'}
                 </p>
               </div>
             </div>
@@ -128,7 +128,7 @@ export default function ExplorePage() {
           <p className="font-semibold text-ink">Not sure where to start?</p>
           <p className="mt-1 text-sm text-muted">
             Tell Tulay your goal once. The demo journey matches you reciprocally, whatever path
-            you are on — no account needed.
+            you are on. No account needed.
           </p>
           <LinkButton href="/start" className="mt-3">
             Start the demo journey

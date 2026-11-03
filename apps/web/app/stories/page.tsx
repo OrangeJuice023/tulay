@@ -8,7 +8,7 @@ import { LogoMark } from '@/components/Logo'
 export const metadata: Metadata = {
   title: 'Community stories',
   description:
-    'Illustrative demo stories of career moves, freelance collaborations and founder connections — challenge, connection, collaboration, outcome.',
+    'Illustrative demo stories of career moves, freelance collaborations and founder connections: challenge, connection, collaboration, outcome.',
 }
 
 const STUDIO_LABEL: Record<string, string> = {
@@ -28,7 +28,7 @@ export default function StoriesPage() {
       <p className="mt-4 max-w-2xl text-lg text-muted">
         Every story here follows the same four beats: the challenge, the connection, the
         collaboration, and the outcome. These first stories are illustrative demo scenarios with
-        fictional members — real member stories can be added later, with explicit permission, and
+        fictional members. Real member stories can be added later, with explicit permission, and
         will reuse this exact shape.
       </p>
       <p className="mt-4 inline-flex items-center rounded-full border border-coral/60 bg-peach px-3 py-1 text-sm font-semibold text-coral-ink">
@@ -48,7 +48,7 @@ export default function StoriesPage() {
               </span>
             </div>
             <h2 className="text-xl font-bold text-ink">
-              {story.persona} — {story.context}
+              {story.persona}, {story.context}
             </h2>
             <p className="text-sm text-muted">
               <span className="font-semibold text-ink">The challenge: </span>

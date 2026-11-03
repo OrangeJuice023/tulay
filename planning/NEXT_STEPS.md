@@ -1,6 +1,6 @@
 ﻿# Next Steps
 
-Prioritized. Each item is a task card (format in `docs/AGENT_WORKFLOW.md`). Updated 2026-10-28.
+Prioritized. Each item is a task card (format in `docs/AGENT_WORKFLOW.md`). Updated 2026-11-03.
 
 North star (canonical): `docs/PROJECT_DIRECTION.md` — "Your next career move shouldn't be a solo
 mission." Every item below serves a complete journey toward mutual help.
@@ -80,6 +80,30 @@ when the source is the real model. (Follow-up preserved from the provider milest
 Deploy, then a demo script that proves one completed act of mutual help (the north-star test
 in `docs/PROJECT_DIRECTION.md`). Suggested demo: "Build a company" → sample → Katrina Uy
 (reciprocal co-founder match) → introduction → next step → "Yes, I moved forward".
+
+## Post-hackathon platform roadmap: Supabase M1 to M6 (deferred, retained)
+
+The full backend stays in the plan and starts only after the hackathon submission, so the
+demo build is never destabilized. No Supabase provisioning, migrations, auth UI, or Expo
+scaffolding happens before then, and no fake authentication or simulated live users will be
+added in the meantime. The architecture holds throughout: three distinct studios over one
+shared reciprocal human-connection engine. Matching decisions stay deterministic and are
+never delegated to an LLM.
+
+- **M1: Supabase authentication and member profiles.** Magic-link sign-in, one real member
+  profile per user, and row-level security so members read and write only their own rows.
+- **M2: Persistent needs and offers with row-level security.** Needs, offers, skills, and
+  availability stored per member, with RLS policies reviewed per table.
+- **M3: Real reciprocal matching and two-sided introduction requests.** The existing
+  deterministic engine runs over persistent member data. Introductions need explicit
+  consent from both sides before contact details are shared.
+- **M4: Persistent collaborations, next steps, and outcomes.** Collaboration records,
+  agreed next steps with status, and outcome recording owned by the collaborators.
+- **M5: Server-side Meta AI integration with user-level limits and privacy boundaries.**
+  The existing MetaModelProvider moves behind an authenticated gateway with rate limits,
+  caching, cost controls, and prompts that carry only what each feature needs.
+- **M6: Mobile application with Expo sharing the same backend.** New React Native UI
+  over the same shared contracts and engine calls. No separate matching logic.
 
 ## Research in parallel (Kilo)
 PH market questions, competitor landscape, job-source registry, user-validation conversations.

@@ -30,7 +30,7 @@ export const CommunityStorySchema = z.object({
 export type CommunityStory = z.infer<typeof CommunityStorySchema>
 
 /** Shown on every fictional story card. Never present these as testimonials. */
-export const FICTIONAL_STORY_LABEL = 'Illustrative demo story — fictional members'
+export const FICTIONAL_STORY_LABEL = 'Illustrative demo story (fictional members)'
 
 const stories = [
   {
@@ -41,7 +41,7 @@ const stories = [
     challenge:
       'Jessa had five years of call-center work and a first draft portfolio that read like a résumé. She needed someone who had made the same move to tell her what to cut and what to keep.',
     connection:
-      'Tulay matched her with Lena M., a product designer who moved from support into design two years earlier, on portfolio review and career transition — and flagged that Jessa could offer interview practice in return.',
+      'Tulay matched her with Lena M., a product designer who moved from support into design two years earlier, on portfolio review and career transition. Tulay also flagged that Jessa could offer interview practice in return.',
     collaboration:
       'They agreed on one concrete next step: a 30-minute portfolio review call before Friday, with Jessa sending two case-study drafts the night before.',
     outcome:
@@ -57,7 +57,7 @@ const stories = [
     challenge:
       'Miguel could edit, but every proposal he sent either underpriced the work or went unanswered. He needed pricing confidence and better proposal openers, not more tutorials.',
     connection:
-      'Tulay paired him with Ari T., a fellow freelancer who needed editing feedback and offered proposal writing in return — a genuine two-way trade, matched on pricing and proposal-writing.',
+      'Tulay paired him with Ari T., a fellow freelancer who needed editing feedback and offered proposal writing in return. A genuine two-way trade, matched on pricing and proposal-writing.',
     collaboration:
       'They swapped work: Ari reviewed Miguel’s pricing worksheet line by line, and Miguel cut a 20-second sample edit for Ari’s showreel.',
     outcome:
@@ -73,11 +73,11 @@ const stories = [
     challenge:
       'Ramon could build the mobile MVP himself, but he had never done customer discovery and did not want to build for stores that would never buy. He needed a business-minded partner, not funding.',
     connection:
-      'Tulay matched him with Dana K., a former FMCG sales lead exploring co-founding, on business development and customer discovery — with mobile development and MVP building flowing the other way.',
+      'Tulay matched him with Dana K., a former FMCG sales lead exploring co-founding, on business development and customer discovery, with mobile development and MVP building flowing the other way.',
     collaboration:
       'They agreed on five store interviews in one week: Dana led the conversations, Ramon took notes and demoed a paper prototype.',
     outcome:
-      'Three interviews completed and a clear pattern in stock-out complaints — but the co-founder fit is still an open question, honestly recorded as partly there.',
+      'Three interviews completed and a clear pattern in stock-out complaints, but the co-founder fit is still an open question, honestly recorded as partly there.',
     helped: 'partly',
     isFictional: true,
   },
@@ -89,7 +89,7 @@ const stories = [
     challenge:
       'Grace was studying spreadsheets after class hours but kept stalling before mock interviews. She needed a practice partner at the same stage, not another course.',
     connection:
-      'Tulay matched her with Jon P., a fellow career shifter preparing for analyst interviews, on interview practice — peers who could hold each other to a schedule.',
+      'Tulay matched her with Jon P., a fellow career shifter preparing for analyst interviews, on interview practice: two peers holding each other to a schedule.',
     collaboration:
       'They set a weekly 45-minute practice set every Sunday: thirty minutes of SQL questions, fifteen minutes of feedback, alternating who goes first.',
     outcome:

@@ -713,7 +713,7 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
                             />
                             <span>
                               <span className="font-medium text-ink">{role.title}</span>
-                              <span className="text-sm text-muted"> — {role.blurb}</span>
+                              <span className="text-sm text-muted">, {role.blurb}</span>
                               <span className="block text-sm text-muted">
                                 {adj
                                   ? adj.basis === 'shared-skills'

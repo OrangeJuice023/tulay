@@ -77,7 +77,7 @@ export default function Home() {
         <ul className="mt-8 grid gap-4 md:grid-cols-3">
           {PATHS.map(({ Icon, title, body, tile }) => (
             <li key={title} className={`rounded-[var(--radius-card)] p-6 transition hover:ring-2 hover:ring-forest/40 ${tile}`}>
-              <Link href="/start" aria-label={`${title} — find my people`} className="block rounded-[inherit] outline-none focus-visible:ring-2 focus-visible:ring-forest">
+              <Link href="/start" aria-label={`${title}: find my people`} className="block rounded-[inherit] outline-none focus-visible:ring-2 focus-visible:ring-forest">
                 <span className="grid h-12 w-12 place-items-center rounded-full bg-white text-forest shadow-sm">
                   <Icon className="h-6 w-6" />
                 </span>
