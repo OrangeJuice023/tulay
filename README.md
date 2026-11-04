@@ -1,356 +1,283 @@
-﻿<div align=\"center\">
+<div align="center">
 
-<img src=\"apps/web/public/brand/tulay-wordmark.svg\" alt=\"Tulay\" height=\"80\">
+<img src="apps/web/public/brand/tulay-wordmark.svg" alt="Tulay" height="72">
 
-<br>
+**Your next career move shouldn't be a solo mission.**
 
-**\"Your next career move shouldn't be a solo mission.\"**
+*Tulay* (Tagalog for "bridge") is a community-powered AI agent for career mobility, Philippines first. It helps you state a goal, find real people with complementary needs and offers, exchange introductions with mutual consent, and turn each connection into one concrete collaboration with a recorded outcome. AI assists with language and structure; deterministic code decides matching, consent, and state changes.
 
-<sub>*Tulay* (Tagalog for \"bridge\") — a community-powered AI agent for career mobility, Philippines first.</sub>
-
-[![License: Unspecified](https://img.shields.io/badge/license-unspecified-lightgrey.svg)](#license)
-[![Node.js](https://img.shields.io/badge/Node.js-%3E%3D20.9.0-brightgreen.svg)](https://nodejs.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black.svg)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue.svg)](https://www.typescriptlang.org/)
-[![Tests](https://img.shields.io/badge/tests-222%2F222%20passing-brightgreen.svg)](#testing-instructions)
-[![Hackathon](https://img.shields.io/badge/Meta%20Global%20AI%20Dev%20Hackathon-Oct%2026%E2%80%93Nov%204%2C%202026-orange.svg)](#hackathon-context--credits)
+[![Supabase](https://img.shields.io/badge/Supabase-Postgres_Auth-3FCF8E.svg)](https://supabase.com/)
+[![Meta Muse Spark](https://img.shields.io/badge/Meta_Muse_Spark-muse--spark--1.3-0064E0.svg)](docs/AI_AGENT_DESIGN.md)
+[![Tests](https://img.shields.io/badge/tests-vitest-brightgreen.svg)](#testing)
 
 </div>
 
 ---
 
-## Table of Contents
+## Contents
 
-- [Why Tulay Exists](#why-tulay-exists)
-- [What Tulay Does](#what-tulay-does)
-- [The Three User Pathways](#the-three-user-pathways)
-- [How It Works](#how-it-works)
-- [Meet Arko — Ask Arko AI Assistant](#meet-arko--ask-arko-ai-assistant)
-- [How Muse Spark Powers Ask Arko](#how-muse-spark-powers-ask-arko)
-- [Product Capabilities](#product-capabilities)
+- [Product overview](#product-overview)
+- [How it works](#how-it-works)
+- [Meet Arko](#meet-arko)
+- [Features](#features)
+- [Product tour](#product-tour)
 - [Architecture](#architecture)
-- [Technology Stack](#technology-stack)
-- [Product Screenshots & Features](#product-screenshots--features)
-- [Rate Tulay / Share Feedback](#rate-tulay--share-feedback)
-- [Local Development Setup](#local-development-setup)
-- [Environment Variables](#environment-variables)
-- [Testing Instructions](#testing-instructions)
-- [Security & Privacy Principles](#security--privacy-principles)
-- [Current Limitations & Roadmap](#current-limitations--roadmap)
-- [Hackathon Context & Credits](#hackathon-context--credits)
+- [Get started](#get-started)
+- [Testing](#testing)
+- [Security and privacy](#security-and-privacy)
+- [Limitations and roadmap](#limitations-and-roadmap)
 - [Documentation](#documentation)
+- [Background](#background)
 - [License](#license)
-- [README Asset Checklist](#readme-asset-checklist)
 
 ---
 
-## Why Tulay Exists
+## Product overview
 
-Career mobility shouldn't be a solo mission. 
+Career mobility runs on people, not just information. Freelancers, career shifters, and founders often know what to do but can't find the right person to do it with — and cold outreach on large platforms feels risky. Tulay's thesis is that AI should help people help one another: it surfaces complementary needs and offers between real members, facilitates introductions only with consent from both sides, and measures success by completed acts of mutual help, not engagement.
 
-Freelancers, career shifters, founders, and independent workers often have access to information and AI tools, but still struggle to find the *right people* who can help them move forward. Cold-messaging on large platforms feels risky, and people who could help would often do so in return — if there was a low-pressure way to find each other.
+Tulay is not a career chatbot, a networking feed, a job board, a mentor directory, or an investor platform. Founder matching runs through the same reciprocal engine as everything else.
 
-**Tulay's thesis:** AI should help people help one another, not replace human relationships that make career mobility possible.
+### The three pathways
 
-Tulay doesn't just tell someone *how* to succeed — it helps them discover people with complementary skills, needs, and goals; facilitates introductions with consent; and turns those connections into actual progress through concrete collaboration and follow-through.
-
-**Tulay is:** A *community-powered AI agent* for career mobility and mutually beneficial collaboration focused on *completed acts of mutual help*, not engagement metrics.
-
-**Tulay is not:** Another AI career chatbot, another professional networking feed or job board, merely a mentor directory, or a startup-investment platform (founder matching uses the same needs-and-offers engine).
-
----
-
-## What Tulay Does
-
-Tulay guides people through a complete journey: **Goal → Specific Need → Complementary People → Consent → Collaboration → Outcome**. At every step, AI assists with language and structure, but the code decides who gets matched, enforces consent, and controls state changes.
-
-Every recommendation is grounded in real application data. No one is invented. Nothing reaches another person without explicit approval from both sides.
-
----
-
-## The Three User Pathways
-
-Tulay supports three interconnected pathways that all share the same matching engine and consent lifecycle:
-
-| Pathway | Who It's For | How Tulay Helps |
+| Pathway | Who it's for | How Tulay helps |
 | --- | --- | --- |
-| **Change Careers** | BPO professionals moving to tech, designers transitioning to product, career shifters | Map transferable skills to target roles using curated career data, find peers who made the move, get portfolio reviews, practice interviews, and receive practical support. |
-| **Grow as a Freelancer** | Designers, developers, editors, virtual assistants, and independents | Discover collaborators for skill swaps, get proposal and pricing feedback, find people who need what you offer in exchange for what you need. |
-| **Build a Company** | Aspiring founders, solo builders, and early-stage collaborators | Find potential co-founders, early users, domain experts, and mentors through the same needs-and-offers engine. *Founder Mode is fully integrated into Tulay* — it's not a separate platform, just a use case of the reciprocal matching system. |
+| **Change Careers** | Career shifters (for example, BPO to tech, design to product) | Map transferable skills to target roles, meet peers who made the move, get portfolio reviews and interview practice. |
+| **Grow as a Freelancer** | Designers, developers, editors, virtual assistants, independents | Find collaborators for skill swaps, get proposal and pricing feedback, trade what you offer for what you need. |
+| **Build a Company** | Aspiring founders and early collaborators | Find potential co-founders, early users, domain experts, and mentors through the same needs-and-offers engine. |
+
+### The core journey
+
+Every pathway follows one path: **goal → need → match → consent → introduction → collaboration → outcome**. You state what you're trying to accomplish, Arko helps you articulate one specific need, Tulay finds real people who complement it, both sides agree before any introduction, and you finish with one concrete next step plus a recorded answer to "did this help you move forward?"
 
 ---
 
-## How It Works
+## How it works
 
-`mermaid
+```mermaid
 flowchart LR
-    A[State Goal & Need] --> B[Ask Arko Structures It]
-    B --> C[Find Complementary People]
-    C --> D[Mutual Consent Required]
+    A[State your goal] --> B[Arko structures your need]
+    B --> C[Find complementary people]
+    C --> D[Both sides consent]
     D --> E[Introduction]
-    E --> F[Agree on Next Step]
-    F --> G[Collaborate & Record Outcome]
-`
+    E --> F[Agree on one next step]
+    F --> G[Collaborate and record outcome]
+```
 
-1. **Ask** - Tell Arko about your goal and specific need. Arko helps structure it; you confirm before saving.
-2. **Match** - Tulay finds real people with complementary needs/offers, showing when you can help each other.
-3. **Introduce** - Send an introduction request with a drafted message (you edit it). The other person must accept or decline.
-4. **Act** - After mutual consent, coordinate one concrete next step together.
-5. **Follow Through** - Mark completion and record whether it helped. This is the measure of success.
+1. **Ask** — Tell Arko about your goal and one specific need. Arko structures it; you confirm before anything is saved.
+2. **Match** — Tulay finds real members with complementary needs and offers, and shows when you can help each other.
+3. **Introduce** — Send an introduction request with an editable drafted message. The other person must accept or decline; declining is quiet.
+4. **Act** — After mutual consent, agree on one concrete next step together.
+5. **Follow through** — Complete the step and record whether it helped. Recorded outcomes are the measure of success.
+
+Matching, eligibility, ranking, consent enforcement, and every database state change are deterministic application code. The model never invents people, attributes, or contact details, and nothing reaches another person without explicit approval from both sides.
 
 ---
 
-## Meet Arko — Ask Arko AI Assistant
+## Meet Arko
 
-<div align=\"center\">
-<img src=\"apps/web/public/brand/mascot/arko-hero.png\" width=\"200\" alt=\"Arko, Tulay's bridge-building companion\">
+<div align="center">
+<img src="apps/web/public/brand/mascot/arko-hero.png" width="200" alt="Arko, Tulay's bridge-building companion">
 </div>
 
-**Arko** is Tulay's bridge-building companion and the face of **Ask Arko** — the conversational workspace where users talk through their next career move.
+**Arko** is Tulay's bridge-building companion and the face of **Ask Arko**, the conversational workspace (at `/ask`) where users talk through their next career move. Guests can try the full loop in demo mode; signed-in members get persistence and consent-gated introductions.
 
-### Arko Demo Animation
+### How Ask Arko uses AI
 
-> **Status:** *Placeholder — animation not yet checked in.*  
-> **Planned location:** ssets/demo/arko-demo.gif  
-> **What to capture:** A short screen recording showing (1) a user asking Arko for career guidance, (2) Arko understanding their situation, (3) an actual AI-generated response from Muse Spark/DemoProvider, and (4) voice transcription in action if verified. Keep it short, readable for GitHub, and free of private/sensitive data. Optimize for web viewing.  
-> **How to capture (for Claude Code):** Run the app locally (
-pm run dev in pps/web), navigate to /ask, demonstrate a realistic career-shifter scenario, record the interaction, trim to 10-30 seconds, and save as an optimized GIF to ssets/demo/arko-demo.gif. Do **not** generate a fake GIF or impersonate a working interface.
+Ask Arko's language understanding and generation run on **Meta Muse Spark** through the Meta Model API, server-side in `services/ai/meta.ts`. The integration uses model `muse-spark-1.3` over Chat Completions with structured JSON outputs: every model response is validated against shared Zod schemas in `packages/shared` before use, and failures throw typed errors that fall back to deterministic paths with visible notes. Voice input is transcribed through the Meta voice transcription endpoint. Demo fallbacks are always labelled in the UI.
 
----
+### Two different "Muse" names
 
-## How Muse Spark Powers Ask Arko
+These are easy to confuse, so Tulay separates them explicitly:
 
-Tulay distinguishes between two different \"Muse\" concepts:
-
-### Muse Code (Development Tool)
-- **What it is:** The development agent used by the project team to build and maintain Tulay
-- **Where it runs:** In the development environment, not in the deployed application
-- **Purpose:** Assists the engineering team; not user-facing
-
-### Muse Spark via Meta Model API (Runtime AI)
-- **What it is:** The model integration intended to power Tulay's user-facing AI capabilities through the Meta Model API
-- **Where it runs:** Server-side in the Next.js app via services/ai/meta.ts
-- **Purpose:** Powers Ask Arko's natural language understanding and generation
-
-**Muse Spark capabilities (when live):** Structure goals, extract needs/offers, interpret intent in chat, explain real candidates (selected by deterministic code), draft introductions (user must edit/approve), suggest collaboration steps, transcribe voice (Taglish/English), draft deck outlines with anti-fabrication safeguards.
-
-**Critical design principle:** *AI assists, code decides.* Candidate retrieval, eligibility, ranking, consent enforcement, and database state changes remain under deterministic application control. All model outputs are validated against shared Zod schemas in packages/shared. The model never invents people, attributes, or contact details.
-
-### Provider Configuration & Status
-
-| Component | Status | Notes |
-| --- | --- | --- |
-| **DemoProvider** | ✅ Implemented & Working | Deterministic, no network/credentials. Used by default. Clearly labeled as \"demo mode\". |
-| **MetaModelProvider** | ⚠️ Implemented, Partially Verified | Live Chat Completions to https://api.meta.ai/v1. One live extractGoal verified (2026-11-04). Chat/transcription live-verified in routes (2026-11-05). Other ops mock-verified only. |
-| **Provider Selection** | ✅ Implemented | getAIProvider() returns Meta only if AI_PROVIDER=meta and MODEL_API_KEY set. Else DemoProvider. /api/health reports active provider. |
-| **Schema Validation** | ✅ Implemented | Every model response validated with Zod. Parse/timeout/HTTP errors throw typed MetaProviderError and fall back to deterministic paths with visible notes. |
-
-> **Note:** We do not claim full production readiness of the live Meta API integration. Live verification is partial. Rate limits, costs, and data-retention terms are not yet confirmed from official docs.
+- **Muse Spark (runtime AI, user-facing).** The model integration described above. It runs server-side inside the Next.js app and powers what users see in Ask Arko, Pitch Deck Studio, and voice transcription.
+- **Muse Code (development tool, never user-facing).** The coding agent the project team uses to build and maintain Tulay. It runs in the development environment only and ships no code path into the deployed application.
 
 ---
 
-## Product Capabilities
+## Features
 
-| Feature | Status | Description |
+Status labels used below: **LIVE-VERIFIED** (exercised against a live service), **IMPLEMENTED (mock-verified)** (built and covered by tests or mocked verification), **DEMO-ONLY** (works in demo mode only), **PLANNED** (not built or not part of the live set).
+
+### Product surfaces
+
+| Area | Status | Notes |
 | --- | --- | --- |
-| **Ask Arko (Conversational Workspace)** | ✅ Implemented | Chat-based interface at /ask to talk through goals and needs with context-aware matching. |
-| **Reciprocal Community Matching** | ✅ Implemented | Deterministic matching finds complementary needs↔offers from real members. Shows \"You can help each other\" when mutual. |
-| **Career & Founder Pathways** | ✅ Implemented | All three pathways share one engine. Founder needs work through the same needs-and-offers logic. |
-| **Consent-Based Introductions** | ✅ Implemented | Introduction requests require mutual acceptance. Declining is quiet. Contact details only revealed after consent. One pending request per pair per need. |
-| **Follow-Through & Collaboration Outcomes** | ✅ Implemented | Create collaboration with next step, track status, record outcome (\"Did this help you move forward?\"). |
-| **Career Intelligence (Landas-inspired)** | ✅ Implemented | 8 curated roles with skill relationships, transferable skills, adjacent roles with reasons. Enriches matching. Labeled as curated data. |
-| **Voice Transcribe** | ⚠️ Implemented, Partially Verified | Voice input in Ask Arko. Records, converts to 16kHz mono WAV, transcribes via Meta API route. Live-verified once (2026-11-05). Falls back to labeled demo in demo mode. |
-| **Resume Studio** | ⚠️ Present in Codebase | Routes/components exist (/studios), appears scaffolded. Not fully verified end-to-end. |
-| **Pitch Deck Studio** | ⚠️ Present in Codebase | Routes/components exist (/deck), includes draftDeckOutline with Zod validation. Not fully verified end-to-end. |
+| Guest Ask Arko loop (`/ask`) | DEMO-ONLY | Labelled simulated reply; outcome recorded; guest state stays in the browser. |
+| Guided journey (`/start`) | IMPLEMENTED (mock-verified) | Goal-to-need flow feeding matching. |
+| Discover, Community, Studios (`/discover`, `/community`, `/studios`) | IMPLEMENTED (mock-verified) | Browse real members; seeded demo members carry a visible Demo label. |
+| Email + password auth with 4-step onboarding | LIVE-VERIFIED | Supabase Auth; see `apps/web/app/onboarding/` and `apps/web/proxy.ts`. |
+| Dashboard, introductions, collaborations, outcomes (`/home`) | IMPLEMENTED (mock-verified) | Consent-gated; persist to Supabase when signed in. |
+| In-app notifications | IMPLEMENTED (mock-verified) | The delivery channel until email is configured. |
+| Pitch Deck Studio (`/deck`) | LIVE-VERIFIED | Outline generation live-verified 2026-11-05; you edit every slide; real `.pptx` export. |
+| Voice transcription route (`/api/voice/transcribe`) | LIVE-VERIFIED | Route live-verified 2026-11-05; demo fallback is labelled. |
+| Live-mic voice end to end | PLANNED | Full microphone-to-reply drive still open. |
+| Outbound email (Resend) | PLANNED | Code complete but unconfigured; zero emails sent. See [docs/EMAIL_SETUP.md](docs/EMAIL_SETUP.md). |
+| Resume Studio (`/resume`) | PLANNED | In-progress WIP on `wip/resume-studio`; browser-UNVERIFIED; excluded from production. |
+
+### Ask Arko AI operations
+
+| Operation | Status | Notes |
+| --- | --- | --- |
+| `chat`, `transcribeAudio`, `extractGoal`, `draftDeckOutline` | LIVE-VERIFIED | Recorded against the live API on 2026-11-04/05. |
+| `explainMatch`, `draftIntroduction`, `suggestCollaboration`, `suggestTags`, `extractCriteria` | IMPLEMENTED (mock-verified) | Implemented; live calls not yet recorded. |
+| `improveResumeSection` | IMPLEMENTED (mock-verified) | Live call not recorded; unreachable from production UI (`/resume` route lives on `wip/resume-studio` only). |
+
+Provider behavior: `getAIProvider()` returns the Meta provider only when `AI_PROVIDER=meta` and a model API key is set; otherwise the deterministic demo provider serves labelled demo output. `/api/health` reports the active provider. Full design and verification notes live in [docs/AI_AGENT_DESIGN.md](docs/AI_AGENT_DESIGN.md).
+
+---
+
+## Product tour
+
+No screenshots or demo video are checked in yet. The fastest tour is local: landing (`/`), guest Ask Arko (`/ask`), guided journey (`/start`), Discover (`/discover`), Community (`/community`), Studios (`/studios`), Pitch Deck Studio (`/deck`), then sign up for the dashboard (`/home`), introductions, collaborations, and outcomes.
+
+<!-- FUTURE SCREENSHOT 1 — Ask Arko (/ask): guest asking about a career move with Arko's structured reply visible. Save under apps/web/public/ and link with a repo-root-relative path. -->
+<!-- FUTURE SCREENSHOT 2 — Discover (/discover): reciprocal match card showing "you can help each other". Save under apps/web/public/ and link with a repo-root-relative path. -->
+<!-- FUTURE SCREENSHOT 3 — Pitch Deck Studio (/deck): edited outline with .pptx export. Save under apps/web/public/ and link with a repo-root-relative path. -->
 
 ---
 
 ## Architecture
 
-`mermaid
+```mermaid
 flowchart TD
-    User[User Browser] --> Next[Next.js 16 App Router]
-    Next --> Shared[packages/shared - Zod Schemas & Types]
-    Next --> Business[Business Logic & Server Actions]
-    Business --> Supabase[(Supabase / PostgreSQL)]
-    Business --> AI[services/ai - Provider Abstraction]
-    AI --> Demo[DemoProvider - Deterministic]
-    AI --> Meta[MetaModelProvider - Muse Spark API]
-    Meta --> MetaAPI[api.meta.ai/v1]
-`
-
-**Key principles:** AI assists, code decides; schema validation everywhere; privacy by design (RLS); demo mode first; no invented data.
-
----
-
-## Technology Stack
+    Browser[Browser] --> Web[Next.js App Router]
+    Web --> Shared[Shared Zod contracts]
+    Web --> Logic[Server actions and business logic]
+    Logic --> DB[(Supabase Postgres and Auth)]
+    Logic --> AI[AI provider abstraction]
+    AI --> Demo[Demo provider]
+    AI --> Meta[Muse Spark via Meta Model API]
+```
 
 | Layer | Technology | Notes |
 | --- | --- | --- |
-| **Frontend** | [Next.js 16](https://nextjs.org/) (App Router), [React 19](https://react.dev/), [TypeScript](https://www.typescriptlang.org/) (strict) | pps/web/ |
-| **Styling** | [Tailwind CSS 4](https://tailwindcss.com/) | Utility-first |
-| **Shared Contracts** | [Zod](https://zod.dev/) in packages/shared/ | Single source of truth |
-| **AI Provider** | Custom abstraction in services/ai/ | DemoProvider & MetaModelProvider |
-| **Database/Auth** | [Supabase](https://supabase.com/) (Postgres + Auth) | Schema/migrations in supabase/migrations/, currently unconfigured in demo |
-| **Testing** | [Vitest](https://vitest.dev/) | 222 tests across 18 files (verified 2026-11-04) |
-| **Tooling** | npm workspaces, Turbopack (default), Webpack fallback | pps/*, packages/*, services/* |
+| Frontend | Next.js 16, React 19, TypeScript (strict) | `apps/web/` |
+| Styling | Tailwind CSS 4 | Utility-first |
+| Contracts | Zod | `packages/shared/`, single source of truth |
+| AI | Provider abstraction | `services/ai/` — demo and Meta providers |
+| Data and auth | Supabase (Postgres + Auth) | Live project; migrations `0001`–`0008`; RLS throughout |
+| Tests | Vitest | Repo root; see [Testing](#testing) |
+
+Guiding principles: AI assists, code decides. Schema validation everywhere. Privacy by design through RLS. Demo mode first, always labelled. No invented data. Details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [docs/TECH_STACK.md](docs/TECH_STACK.md), [docs/DATA_MODEL.md](docs/DATA_MODEL.md).
 
 ---
 
-## Product Screenshots & Features
-
-> **Status:** *No screenshots or demo video checked in.* Run locally to explore. All demo members are synthetic and labeled with a \"Demo\" badge.
-
-**Key areas:** Landing (/), Ask Arko (/ask), Demo (/demo), Journey/Onboarding (/start), Discover/Explore, Introductions, Collaborations, Home Dashboard (/home).
-
----
-
-## Rate Tulay / Share Feedback
-
-> **Status:** *Feedback destination not yet configured.* Links below are placeholders until a real mechanism is connected.
-
-[![Rate 1/5](https://img.shields.io/badge/⭐%20Rate-1%2F5-red.svg)](FEEDBACK_DESTINATION_NOT_CONFIGURED)
-[![Rate 2/5](https://img.shields.io/badge/⭐⭐%20Rate-2%2F5-orange.svg)](FEEDBACK_DESTINATION_NOT_CONFIGURED)
-[![Rate 3/5](https://img.shields.io/badge/⭐⭐⭐%20Rate-3%2F5-yellow.svg)](FEEDBACK_DESTINATION_NOT_CONFIGURED)
-[![Rate 4/5](https://img.shields.io/badge/⭐⭐⭐⭐%20Rate-4%2F5-lightgreen.svg)](FEEDBACK_DESTINATION_NOT_CONFIGURED)
-[![Rate 5/5](https://img.shields.io/badge/⭐⭐⭐⭐⭐%20Rate-5%2F5-brightgreen.svg)](FEEDBACK_DESTINATION_NOT_CONFIGURED)
-
-**To activate:** Configure GitHub Discussions/Issues or an in-app feedback route and replace FEEDBACK_DESTINATION_NOT_CONFIGURED. No votes are collected/stored until connected.
-
----
-
-## Local Development Setup
+## Get started
 
 ### Prerequisites
+
 - Node.js >= 20.9.0
 - npm
 
-### Installation & Running
+### Run locally
 
-`ash
+```bash
 git clone https://github.com/OrangeJuice023/tulay.git
 cd tulay
 npm install
 npm run dev
-`
+```
 
-Open [http://localhost:3000](http://localhost:3000). Demo mode works out of the box with no sign-up, DB, or API keys.
+Open [http://localhost:3000](http://localhost:3000). Demo mode works out of the box — no sign-up, database, or API keys required. There is no CI or deploy target configured in this repo.
+
+### Environment variables
+
+All optional for demo mode. Names only — see [.env.example](.env.example) for the template and [docs/EMAIL_SETUP.md](docs/EMAIL_SETUP.md) for email.
+
+| Variable | Purpose |
+| --- | --- |
+| `AI_PROVIDER` | `demo` (default) or `meta`; Meta is used only with a key set |
+| `MODEL_API_KEY` | Canonical server-only Meta key |
+| `META_MODEL_API_KEY` | Legacy fallback for the Meta key |
+| `META_MODEL_API_URL` | Base URL override (has a working default) |
+| `META_MODEL_MODEL` | Model override (has a working default) |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL for auth and persistence |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Browser-safe Supabase key (preferred name) |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Browser-safe Supabase key (legacy name) |
+| `SUPABASE_SECRET_KEY` | Server-only Supabase key (preferred name) |
+| `SUPABASE_SERVICE_ROLE_KEY` | Server-only Supabase key (legacy name) |
+| `RESEND_API_KEY` | Resend key for outbound email |
+| `RESEND_FROM_EMAIL` | Verified sender address for outbound email |
+| `RESEND_WEBHOOK_SECRET` | Signing secret for delivery webhooks |
+| `NEXT_PUBLIC_APP_URL` | Public app URL |
 
 ---
 
-## Environment Variables
+## Testing
 
-All optional for demo mode. See [.env.example](.env.example).
-
-| Variable | Required | Purpose | Notes |
-| --- | --- | --- | --- |
-| AI_PROVIDER | No | demo (default) or meta | Only uses Meta if key set |
-| MODEL_API_KEY | No | Server-only Meta key | Never NEXT_PUBLIC_, never commit |
-| META_MODEL_API_KEY | No | Legacy fallback | Same as MODEL_API_KEY |
-| META_MODEL_API_URL | No | Base URL override | Default: https://api.meta.ai/v1 |
-| META_MODEL_MODEL | No | Model override | Default: muse-spark-1.3 |
-| NEXT_PUBLIC_SUPABASE_URL | No | Supabase URL | For auth/persistence (unconfigured) |
-| NEXT_PUBLIC_SUPABASE_ANON_KEY | No | Supabase anon key | For auth/persistence (unconfigured) |
-| SUPABASE_SERVICE_ROLE_KEY | No | Service role key (server-only) | For admin ops |
-| RESEND_API_KEY | No | Resend key | Email not sent without config |
-
-See [docs/EMAIL_SETUP.md](docs/EMAIL_SETUP.md).
-
----
-
-## Testing Instructions
-
-`ash
-npm test        # vitest, repo root
-npm run lint    # eslint (web workspace)
+```bash
+npm test          # vitest, repo root
+npm run lint      # eslint (web workspace)
 npm run typecheck # tsc --noEmit (all workspaces)
-npm run build   # production build (web workspace)
-`
+npm run build     # production build (web workspace)
+```
 
-**Verified (2026-11-04):** 222/222 tests passing (18 files), clean lint and typecheck, production build green. 
-ext build defaults to Turbopack; if sandbox blocks worker ports, use 
-px next build --webpack in pps/web.
+Status: 376 tests / 32 files, all passing (verified 2026-11-05 on `main`; run `npm test` for the current number).
 
 ---
 
-## Security & Privacy Principles
+## Security and privacy
 
-1. **Consent first** - Nothing reaches another person without explicit approval from both sides
-2. **Real people only** - No invented members/skills/outcomes; AI only explains/drafts about real candidates
-3. **AI assists, code decides** - Matching/eligibility/consent/DB changes are deterministic; AI outputs validated with Zod
-4. **Demo is labeled** - Seeded users have is_demo = true with visible \"Demo\" labels
-5. **Privacy by design** - RLS on user tables; users see only their own rows and rows they're party to; secrets stay server-side
-6. **No automatic outreach** - Everything requires explicit user action
-7. **Schema validation** - All untrusted AI output validated before use
-8. **Server-only secrets** - API keys never exposed to client
+1. **Consent first** — nothing reaches another person without explicit approval from both sides.
+2. **Real people only** — no invented members, skills, or outcomes; AI only explains or drafts about real candidates.
+3. **AI assists, code decides** — matching, eligibility, consent, and database changes are deterministic; model output is Zod-validated.
+4. **Demo is labelled** — seeded users are flagged and carry visible Demo labels.
+5. **Privacy by design** — RLS on user tables; users see only their own rows and rows they are party to.
+6. **No automatic outreach** — every message requires explicit user action.
+7. **Server-only secrets** — API keys never reach the client.
 
 See [docs/SECURITY_AND_PRIVACY.md](docs/SECURITY_AND_PRIVACY.md).
 
 ---
 
-## Current Limitations & Roadmap
+## Limitations and roadmap
 
-### Current Limitations (Honest)
-- **No live users** - All members synthetic and labeled \"Demo\"
-- **Supabase unconfigured** - Code exists but not connected; RLS not exercised with real data
-- **Partial AI integration** - Muse Spark live verification partial (extractGoal verified once, others mock-tested)
-- **No emails sent** - Resend not configured
-- **Missing assets** - No Arko GIF/screenshots checked in
-- **License not chosen** - To be determined
-- **Studios** - Resume/Pitch Deck present but not fully verified in core demo path
+Honest limits of the current state:
 
-### Roadmap
-- [ ] Live Muse Spark verification (rate limits/cost/data-retention)
-- [ ] Supabase persistence & auth with RLS
-- [ ] Native Android app via Expo (reusing @tulay/shared)
-- [ ] Add ssets/demo/arko-demo.gif
-- [ ] Add product screenshots
-- [ ] Connect rating buttons to real feedback destination
-- [ ] Expand career catalog if valuable
+- Guest journeys keep introductions and collaborations in browser storage with labelled simulated replies; signed-in members persist to Supabase.
+- Live AI verification is partial: four operations recorded live, five mock-verified only, one demo-only. Rate limits, costs, and data-retention terms are unconfirmed.
+- No outbound email: Resend is code-complete but unconfigured, so notifications are in-app only.
+- Resume Studio is excluded from production (WIP on `wip/resume-studio`, browser-UNVERIFIED).
+- Live-mic voice end to end is still open; only the transcription route is live-verified.
+- No CI or deploy target is configured; no license has been chosen yet.
 
----
+Roadmap:
 
-## Hackathon Context & Credits
-
-**Event:** Meta Global AI Developer Hackathon (Oct 26 – Nov 4, 2026)  
-**Approach:** One polished end-to-end flow beats many half-built features. Judged by completed acts of mutual help with recorded outcomes.  
-**Built with:** Next.js 16, React 19, TypeScript, Tailwind CSS 4, Zod, Supabase, Vitest, Meta Muse Spark via Meta Model API  
-**Notes:** Uses curated career data inspired by Landas. All demo data synthetic. Arko is Tulay's bridge-building mascot.
+- [ ] Finish Muse Spark verification (remaining operations, rate limits, costs, data retention)
+- [ ] Verify Resume Studio and record its migration
+- [ ] Drive live-mic voice end to end
+- [ ] Configure outbound email or document the decision not to
+- [ ] Add product screenshots and an Ask Arko demo clip
+- [ ] Choose a license
+- [ ] Native mobile via Expo, reusing the shared contracts
 
 ---
 
 ## Documentation
 
-- [AGENTS.md](AGENTS.md) - Canonical agent instructions
-- [docs/PROJECT_DIRECTION.md](docs/PROJECT_DIRECTION.md) - North star (canonical)
-- [docs/PRODUCT_SPEC.md](docs/PRODUCT_SPEC.md) - MVP requirements
-- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) - Architecture
-- [docs/TECH_STACK.md](docs/TECH_STACK.md) - Tech stack
-- [docs/AI_AGENT_DESIGN.md](docs/AI_AGENT_DESIGN.md) - AI design, Muse Spark, validation
-- [docs/DATA_MODEL.md](docs/DATA_MODEL.md) - Data model
-- [docs/SECURITY_AND_PRIVACY.md](docs/SECURITY_AND_PRIVACY.md) - Security & privacy
-- [docs/brand/](docs/brand/) - Brand assets
-- [planning/](planning/) - Checklist, issues, next steps
-- [research/](research/) - Research
+- [AGENTS.md](AGENTS.md) — canonical agent instructions
+- [docs/PROJECT_DIRECTION.md](docs/PROJECT_DIRECTION.md) — north star (canonical)
+- [docs/PRODUCT_SPEC.md](docs/PRODUCT_SPEC.md) — MVP requirements
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — architecture
+- [docs/TECH_STACK.md](docs/TECH_STACK.md) — tech stack
+- [docs/AI_AGENT_DESIGN.md](docs/AI_AGENT_DESIGN.md) — AI design, Muse Spark, validation
+- [docs/DATA_MODEL.md](docs/DATA_MODEL.md) — data model
+- [docs/SECURITY_AND_PRIVACY.md](docs/SECURITY_AND_PRIVACY.md) — security and privacy
+- [docs/brand/](docs/brand/) — brand assets
+- [planning/](planning/) — checklist, issues, next steps
+- [research/](research/) — research
+
+---
+
+## Background
+
+Tulay was built for the Meta Global AI Developer Hackathon (Oct 26 – Nov 4, 2026) on a simple bet: one polished end-to-end flow beats many half-built features. Career data is curated and labelled, all demo members are synthetic, and Arko is Tulay's bridge-building mascot.
 
 ---
 
 ## License
 
-**Not yet chosen.**
-
----
-
-## README Asset Checklist
-
-| Item | Status | Notes |
-| --- | --- | --- |
-| **Tulay logo/wordmark** | ✅ Present | pps/web/public/brand/tulay-wordmark.svg, 	ulay-mark.svg |
-| **Arko mascot images** | ✅ Present | All states in pps/web/public/brand/mascot/ |
-| **Arko demo animation (ssets/demo/arko-demo.gif)** | ❌ Missing | Need screen recording of Ask Arko. See [Meet Arko section](#meet-arko--ask-arko-ai-assistant). |
-| **Product screenshots** | ❌ Missing | Would enhance visual appeal but not critical. |
-| **Rate Tulay feedback destination** | ❌ Not configured | Placeholder links; needs GitHub Discussions/Issues or app route. |
-| **Architecture diagram** | ✅ Present | Mermaid diagram reflecting actual architecture |
-| **Badges/links** | ✅ Present | Tech stack, tests, hackathon badges |
-
-*README crafted to be judge-ready, factual, and transparent about implemented vs planned features.*
+Not yet chosen — this repo has no `LICENSE` file, so there is no license badge above. Until a license is added, all rights reserved by default.
