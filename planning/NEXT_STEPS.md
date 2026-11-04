@@ -1,6 +1,6 @@
 ﻿# Next Steps
 
-Prioritized. Each item is a task card (format in `docs/AGENT_WORKFLOW.md`). Updated 2026-11-03.
+Prioritized. Each item is a task card (format in `docs/AGENT_WORKFLOW.md`). Updated 2026-11-05.
 
 North star (canonical): `docs/PROJECT_DIRECTION.md` — "Your next career move shouldn't be a solo
 mission." Every item below serves a complete journey toward mutual help.
@@ -72,16 +72,79 @@ mission." Every item below serves a complete journey toward mutual help.
   Verified: `npm test` (160 pass, 11 files), `npm run typecheck` (all 3
   workspaces), `npm run lint`, `npm run build` (19/19 pages). Nothing committed.
 
+## Done (2026-11-04, integrated implementation sprint)
+
+Muse Code, same branch, uncommitted. All verified: `npm test` (205 pass,
+17 files), `npm run typecheck` (3 workspaces), `npm run lint`, `npm run build`
+(all routes + proxy green).
+
+- Dashboard `/home` from the approved reference (recreated as components, not
+  the screenshot): sidebar nav, cover/avatar upload (demo), greeting + Arko
+  greeting state, Ask Arko composer, quick actions, computed journey stats,
+  potential matches from the visitor's own open needs (no numeric match
+  scores, per product language), right rail (upcoming, active collaboration,
+  encouragement). Arko gains `greeting`/`thinking` states reusing approved
+  crops (no new art); `docs/brand/mascot.md` updated.
+- Discover `/discover`: directory browsing over contact-stripped rows with
+  query/path/skill filters through shared `memberMatchesFilters`.
+- Ask Arko `/ask`: real conversational workspace. New `chat` op on
+  `AIProvider` (shared `ArkoChatReply` Zod contract, Demo + Meta
+  implementations, tag-vocabulary enforcement) with honest live/demo/
+  deterministic labels; deterministic `findCandidates` retrieval; `explainMatch`
+  and `suggestTags` wired into the UI for the first time; shortlist →
+  editable draft + explicit consent → introduction → next step → outcome.
+  Demo loop completes in-browser with labelled simulated replies; signed-in
+  members continue two-sided in Introductions/Collaborations.
+- Supabase foundation per Kilo's brief (verified against official Resend and
+  Next.js docs + installed `@supabase/ssr`): env config (publishable/anon
+  names reconciled), browser/server/admin clients, Next 16 `proxy.ts` session
+  refresh, email+password auth UI + PKCE callback, migration
+  `0004_notifications` (notifications table + RLS + contact-stripped
+  `public_profiles` view), full repository with tested mappers. No project
+  exists: zero live requests, RLS never exercised — see KNOWN_ISSUES #2.
+- Introductions `/introductions` (recipient accept/decline, withdraw,
+  accepted-only contact reveal), Collaborations upgrade (authed status/steps/
+  outcomes + Ask-Arko demo records), Profile `/profile` (authed editor +
+  needs/offers, demo editor), authenticated dashboard data merge.
+- Notifications: Supabase-backed in-app (recipient RLS, service-role
+  inserts) + journey-store demo notifications in the dashboard bell.
+  No Realtime (deliberate: refresh-on-navigation suffices for the MVP).
+- Email: Resend client + orchestration complete per official API docs, demo
+  fallback preserves in-app-only behavior. Never sent; see
+  `docs/EMAIL_SETUP.md` and KNOWN_ISSUES #12.
+
+## Done (2026-11-05, MVP delivery)
+
+Muse Code, same branch, uncommitted. All verified: `npm test` (357 pass,
+30 files), `npm run typecheck` (all workspaces), `npm run lint`,
+`npm run build` (33 routes), plus browser-driven journeys in system Chrome
+and live Supabase/Meta calls.
+
+- P1 auth/onboarding: check-email pending screen, resend on signup + login,
+  callback handles `code` + `token_hash` with allowlisted `next`, idempotent
+  profile ensure, 4-step `/onboarding`, new-user gating (`proxy.ts` 307s +
+  page gates); `contact_method` dual-write removed; `0006_onboarding.sql`
+  (`onboarding_completed` + outcome UPDATE policy) applied to production.
+- P2 Ask Arko + voice: voice wire corrected to the official shape and proven
+  live through the app route; `chat` proven live; `/ask` UI smoke-driven.
+- P3 Pitch Deck Studio: schemas + slide ops, 9th AI op `draftDeckOutline`
+  (anti-fabrication, template grounding), `0007_decks.sql` + owner RLS
+  applied, editor UI, real `.pptx` export (content-verified), studio entry
+  flipped live. New deps: `pptxgenjs` (web), `jszip` (root dev, export test).
+- Env normalized (`AI_PROVIDER=meta`, stray `SUPABASE_URL` removed);
+  `/api/health` reports live meta mode.
+
 ## 1. Meta Model API facts, primary confirmation (Kilo)
-Kilo's research report never landed; confirm the implemented wire values (base URL, auth,
-model, `json_schema` shape) against official docs with citations, plus rate limits, cost,
-and data-retention terms. Then someone with a key runs one live request.
+Update 2026-11-05: voice wire confirmed vs official docs with citations
+(`docs/AI_AGENT_DESIGN.md`); `extractGoal`, `chat`, `transcribeAudio`,
+`draftDeckOutline` passed live. Still open: rate limits, cost,
+data-retention terms, Taglish quality.
 
-## 2. Supabase schema, RLS and auth (Muse Code)
-Migrations and RLS from `docs/DATA_MODEL.md`; RLS test; magic-link auth.
-
-Then Claude Code swaps the browser-local demo store (`apps/web/lib/demo-store.ts`) and the
-simulated reply for real records and a real recipient inbox.
+## 2. Supabase schema, RLS and auth (Muse Code) — DONE 2026-11-05
+Migrations 0001-0007 applied to the live project; RLS exercised
+(owner/discoverable/anon paths); email+password auth (not magic link) with
+verification, resend, callback, and onboarding. Dual guest/authed mode kept:
+guests use the labelled browser demo, members persist to Supabase.
 
 ## 3. AI text labels + tag suggestions in the UI (Claude Code)
 Use `extractGoal`/`suggestTags` to suggest need/offer tags from the goal text (J1), and
@@ -92,9 +155,35 @@ Update 2026-11-04: the label half is done — `criteriaSource` gains an honest
 (Muse Code); only tag-suggestion UI wiring remains.
 
 ## 4. Deploy and demo script (Claude Code + Muse Code)
-Deploy, then a demo script that proves one completed act of mutual help (the north-star test
-in `docs/PROJECT_DIRECTION.md`). Suggested demo: "Build a company" → sample → Katrina Uy
-(reciprocal co-founder match) → introduction → next step → "Yes, I moved forward".
+Update 2026-11-05: recording script refreshed (`planning/DEMO_SCRIPT.md`) with
+verified URLs + demo account; deploy still open (KNOWN_ISSUES #14).
+
+## IA Phase 4: Supabase-backed onboarding (core built 2026-11-05)
+
+Core flow is live: single 4-step `/onboarding` (name, situation, goal, needs,
+offers, pathway → `primary_studio`), `onboarding_completed` flag, new-user
+gating. The fuller multi-route design below (`/onboarding/profile`,
+`/onboarding/journey`, `primary_journey`/`journeys[]`/`active_studio`,
+add-another-journey) is deferred, not needed for the demo.
+
+Implemented IA (Phases 0–3, 5) intentionally stops before real accounts. When a
+Supabase project is provisioned and verified, build the intended production flow:
+
+Sign up → Profile Setup → Choose Primary Journey → Corresponding Studio Dashboard.
+
+- New routes `/onboarding/profile` (progressive: name + goal first, then skills,
+  experience, interests, offers) and `/onboarding/journey` (three journey cards;
+  Arko may suggest via the existing chat op, the user taps to choose).
+- Migration adding `primary_journey`, `journeys[]`, `active_studio`,
+  `onboarding_step` to profiles, own-row RLS.
+- Login/session entry redirects to `active_studio`; studio visits update it;
+  `/home` stays the cross-studio overview; "add another journey" from Profile.
+- Remove the temporary "accounts aren't available in this preview" states in
+  `AuthForm` at cutover. Guest `/start` demo and studio guest previews remain.
+
+Journey → studio mapping (already encoded in `JOURNEY_TO_STUDIO`,
+`apps/web/lib/studios.ts`): Change careers → Career Studio, Grow as a
+freelancer → Freelance Studio, Build a company → Venture Studio.
 
 ## Post-hackathon platform roadmap: Supabase M1 to M6 (deferred, retained)
 

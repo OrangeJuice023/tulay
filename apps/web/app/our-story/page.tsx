@@ -182,8 +182,8 @@ export default function OurStoryPage() {
         <LinkButton href="/explore" variant="secondary">
           Explore the studios
         </LinkButton>
-        <LinkButton href="/stories" variant="secondary">
-          Read community stories
+        <LinkButton href="/community" variant="secondary">
+          Meet the community
         </LinkButton>
       </div>
     </div>

@@ -40,9 +40,21 @@ export default function RootLayout({
             </Link>
             <DesktopNav />
             <div className="flex items-center gap-1">
+              <span className="hidden sm:block">
+                <Link href="/login" className={buttonClass('quiet', 'md')}>
+                  Sign in
+                  <LinkPending />
+                </Link>
+              </span>
+              <span className="hidden sm:block">
+                <Link href="/start" className={buttonClass('quiet', 'md')}>
+                  Try Demo
+                  <LinkPending />
+                </Link>
+              </span>
               {/* Wrapper hides it on phones: buttonClass's inline-flex would override `hidden`. */}
               <span className="hidden sm:block">
-                <Link href="/start" className={buttonClass('primary', 'md')}>
+                <Link href="/signup" className={buttonClass('primary', 'md')}>
                   Get started
                   <LinkPending />
                 </Link>

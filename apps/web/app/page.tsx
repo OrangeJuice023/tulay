@@ -12,10 +12,10 @@ const STEPS = [
   { title: 'Take one step together', body: 'Agree on a small next step, follow through, and record whether it helped.' },
 ]
 
-const PATHS = [
-  { Icon: Leaf, title: 'Change careers', body: 'Reviews, practice and advice from people who made the move.', tile: 'bg-mist' },
-  { Icon: Briefcase, title: 'Grow as a freelancer', body: 'Pricing, proposals and skill swaps with fellow freelancers.', tile: 'bg-peach/70' },
-  { Icon: Rocket, title: 'Build a company', body: 'A co-founder, pitch feedback and early users from people who know your market.', tile: 'bg-[#e9eef8]' },
+const JOURNEYS = [
+  { Icon: Leaf, title: 'Change careers', body: 'Reviews, practice and advice from people who made the move.', tile: 'bg-mist', studio: 'career' },
+  { Icon: Briefcase, title: 'Grow as a freelancer', body: 'Pricing, proposals and skill swaps with fellow freelancers.', tile: 'bg-peach/70', studio: 'freelance' },
+  { Icon: Rocket, title: 'Build a company', body: 'A co-founder, pitch feedback and early users from people who know your market.', tile: 'bg-[#e9eef8]', studio: 'venture' },
 ]
 
 export default function Home() {
@@ -73,11 +73,11 @@ export default function Home() {
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <h2 className="text-3xl font-extrabold tracking-tight text-ink">What&apos;s your next move?</h2>
-        <p className="mt-2 text-muted">Pick a starting point. Every path leads to people, not a chatbot.</p>
+        <p className="mt-2 text-muted">Pick your journey. Every journey leads to people, not a chatbot.</p>
         <ul className="mt-8 grid gap-4 md:grid-cols-3">
-          {PATHS.map(({ Icon, title, body, tile }) => (
+          {JOURNEYS.map(({ Icon, title, body, tile, studio }) => (
             <li key={title} className={`rounded-[var(--radius-card)] p-6 transition hover:ring-2 hover:ring-forest/40 ${tile}`}>
-              <Link href="/start" aria-label={`${title}: find my people`} className="block rounded-[inherit] outline-none focus-visible:ring-2 focus-visible:ring-forest">
+              <Link href={`/studios/${studio}`} aria-label={`${title}: open the studio`} className="block rounded-[inherit] outline-none focus-visible:ring-2 focus-visible:ring-forest">
                 <span className="grid h-12 w-12 place-items-center rounded-full bg-white text-forest shadow-sm">
                   <Icon className="h-6 w-6" />
                 </span>
@@ -94,7 +94,7 @@ export default function Home() {
               Consent before contact. Real people only. Success means someone actually got help.
             </p>
           </div>
-          <LinkButton href="/start" variant="accent" size="lg">
+          <LinkButton href="/signup" variant="accent" size="lg">
             Get started
           </LinkButton>
         </div>

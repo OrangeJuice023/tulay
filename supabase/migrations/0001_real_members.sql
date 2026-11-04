@@ -19,7 +19,6 @@ create table if not exists public.profiles (
   locale text not null default 'en-PH',
   discoverable boolean not null default true,
   visibility_settings jsonb not null default '{}',
-  contact_method text check (char_length(contact_method) <= 500),
   primary_studio text check (primary_studio in ('career', 'freelance', 'venture')),
   interests text[] not null default '{}',
   location text check (char_length(location) <= 200),

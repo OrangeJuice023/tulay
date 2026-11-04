@@ -5,12 +5,18 @@ import Link from 'next/link'
 import { LinkPending } from './LinkPending'
 import { buttonClass } from './ui'
 
+/**
+ * Public navigation. Ask Arko is linked here as the guest entry point (it
+ * also appears in the workspace sidebar for signed-in users). The remaining
+ * workspace pages (Home, Discover, Introductions, Collaborations, Profile)
+ * are reached through the in-app sidebar (AppNav).
+ */
 const LINKS = [
-  { href: '/explore', label: 'Explore' },
-  { href: '/stories', label: 'Stories' },
+  { href: '/ask', label: 'Ask Arko' },
+  { href: '/explore', label: 'Explore Studios' },
+  { href: '/community', label: 'Community' },
   { href: '/our-story', label: 'Our Story' },
   { href: '/#how-it-works', label: 'How it works' },
-  { href: '/collaborations', label: 'My Collaborations' },
 ]
 
 /** Mobile navigation: menu button + panel. Desktop links live in the header. */
@@ -59,11 +65,21 @@ export function MobileNav() {
                   </Link>
                 </li>
               ))}
-              <li className="pt-2">
-                <Link href="/start" onClick={() => setOpen(false)} className={buttonClass('primary', 'md')}>
+              <li className="flex flex-col gap-2 pt-2">
+                <Link href="/signup" onClick={() => setOpen(false)} className={buttonClass('primary', 'md')}>
                   Get started
                   <LinkPending />
                 </Link>
+                <span className="flex gap-2">
+                  <Link href="/start" onClick={() => setOpen(false)} className={buttonClass('secondary', 'md')}>
+                    Try the demo
+                    <LinkPending />
+                  </Link>
+                  <Link href="/login" onClick={() => setOpen(false)} className={buttonClass('quiet', 'md')}>
+                    Sign in
+                    <LinkPending />
+                  </Link>
+                </span>
               </li>
             </ul>
           </nav>

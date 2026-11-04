@@ -272,9 +272,12 @@ describe('ExtractedGoalSchema', () => {
     expect(ExtractedGoalSchema.safeParse(demo).success).toBe(true)
   })
 
-  it('rejects an empty goal and an empty needs list', () => {
+  it('rejects an empty goal but permits genuinely absent needs', () => {
     expect(ExtractedGoalSchema.safeParse({ ...demo, goal: '' }).success).toBe(false)
-    expect(ExtractedGoalSchema.safeParse({ ...demo, needs: [] }).success).toBe(false)
+    // Goal-only input: extraction stays honest with no invented needs.
+    const parsed = ExtractedGoalSchema.safeParse({ ...demo, needs: [] })
+    expect(parsed.success).toBe(true)
+    expect(parsed.success && parsed.data.needs).toEqual([])
   })
 
   it('bounds the number of needs', () => {

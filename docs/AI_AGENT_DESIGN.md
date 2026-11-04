@@ -4,12 +4,15 @@
 
 | Task | Model does | Code does |
 | --- | --- | --- |
-| Goal extraction | Free text → `{goal, needs[], offers[], skills[]}` | Validates with `ExtractedGoalSchema`; user confirms before saving |
+| Conversation (`chat`, added 2026-11-04) | Interpret one turn → `{reply, intent, lookingForPeople, extractedNeed?, goal?}` | Validates with `ArkoChatReplySchema`; constrains tags to the caller vocabulary; retrieval stays in `findCandidates`; consent/state stay in UI actions |
+| Goal extraction | Free text → `{goal, needs[], offers[], skills[]}` (needs strictly what the user stated; empty when goal-only) | Validates with `ExtractedGoalSchema`; user confirms before saving; empty needs show a follow-up hint, never an invented need |
 | Candidate retrieval | Nothing | SQL query + deterministic ranking over real rows |
 | Match explanation | One short paragraph for a candidate the code already selected | Passes only that candidate's visible fields; falls back to listing the matched factors |
 | Introduction draft | Draft message | User must edit/approve and press Send |
 | Next-step suggestions | 1 to 3 concrete steps | Users choose or edit; nothing is scheduled automatically |
 | Skill tags | Pick from the caller's vocabulary | Enforces the subset; demo does substring match |
+| Voice transcription (`transcribeAudio`, added 2026-11-04) | Audio → transcript text (user's own speech) | Browser converts to 16 kHz mono WAV; server validates WAV + size + 60 s cap; transcript returns for review, never auto-sends; no integrity check on the user's own words |
+| Deck outline (`draftDeckOutline`, added 2026-11-05) | User facts → `{slides[{title, bullets[]}]}` following the template structure | Validates with `DeckOutlineSchema`; anti-fabrication prompt (unknowns become `[bracketed placeholders]`); user edits every slide before export |
 
 The model never: invents people or attributes, decides who is shown, changes consent or status,
 sends anything externally, or sees contact details.
@@ -19,23 +22,56 @@ sends anything externally, or sees contact details.
 ```typescript
 interface AIProvider {
   extractGoal(input: string): Promise<ExtractedGoal>
+  extractCriteria(input: string): Promise<ConciergeCriteria>
   explainMatch(context: ExplainMatchContextInput): Promise<MatchExplanation>
   draftIntroduction(context: DraftIntroductionContextInput): Promise<IntroductionDraft>
   suggestCollaboration(context: SuggestCollaborationContextInput): Promise<CollaborationSuggestions>
   suggestTags(context: SuggestTagsContextInput): Promise<SuggestedTags>
+  chat(context: ArkoChatContextInput): Promise<ArkoChatReply> // added 2026-11-04
+  transcribeAudio(input: TranscribeVoiceInputInput): Promise<VoiceTranscript> // added 2026-11-04
+  draftDeckOutline(context: DraftDeckOutlineContextInput): Promise<DeckOutline> // added 2026-11-05
 }
 ```
 
 - `DemoProvider` (`demo.ts`): deterministic, no network, no credentials. Note: its `extractGoal`
   returns fixed needs regardless of input; acceptable for demo mode, but the UI must label it.
 - `MetaModelProvider` (`meta.ts`): real Chat Completions integration with structured output
-  (implemented 2026-10-29, mock-verified, no live request yet). Sends only model, messages and
+  (implemented 2026-10-29, mock-verified; one live `extractGoal` passed 2026-11-04). Sends only model, messages and
   `response_format`; 30s timeout; zero retries. Throws typed `MetaProviderError` on any
   failure and never silently returns demo output. The key lives in a true private field.
 - `getAIProvider()`: returns Meta only if `AI_PROVIDER=meta` and a key is set (`MODEL_API_KEY`,
   canonical; `META_MODEL_API_KEY` still works as a legacy fallback). Anything else → demo.
 - The `context` parameters use input types from `packages/shared`, and every output is validated
   with its Zod schema before use (wired 2026-10-28).
+
+## Voice Transcribe (Ask Arko voice input, 2026-11-04)
+
+File endpoint `POST /v1/asr/transcribe`, model `muse-voice-transcribe-1.0`,
+Bearer `MODEL_API_KEY`, WAV-only (mono 16-bit PCM, 16/24 kHz), language bias
+`["English", "Tagalog"]` with Taglish covered by code-switching — first
+verified in `research/findings/meta-voice-and-image-api-brief.md`. The wire
+shape is CONFIRMED against the official reference
+(`dev.meta.ai/docs/api-reference/voice/transcribe` and `/voice/schemas`,
+retrieved 2026-11-05): multipart parts `request` (JSON:
+`{model, audioEncoding: "WAV", mode: "PUSH_TO_TALK", languageBias}`) and
+`audio` (the clip), `Accept: application/json` for the buffered response
+(`{sessionId, transcript, audioDurationMs}`). The API itself corroborates this:
+it rejects anything else with "Both a 'request' and an 'audio' part are
+required". Live-verified 2026-11-05 through `POST /api/voice/transcribe`
+(word-perfect transcript, `source: "live""); the earlier `file`/`model`/
+`languageBias` fields and `{transcript|text}` shape were wrong and are gone.
+
+Pipeline: `VoiceInput.tsx` records via MediaRecorder (60 s MVP cap,
+auto-stop), decodes and re-encodes to 16 kHz mono WAV in memory
+(`lib/voice-audio.ts`), shows duration + consent, and only on explicit
+Transcribe POSTs multipart/form-data to `/api/voice/transcribe`. The route
+handler (`lib/voice-transcribe.ts`) rejects non-WAV (415), oversize (413),
+bad WAV/duration (400), forwards to `transcribeAudio`, re-validates with
+`VoiceTranscriptSchema`, and returns text the user reviews, edits, and sends
+explicitly. No browser-to-Meta requests, no audio persistence, no audio or
+credentials in logs/errors. Live failures fall back to the labelled demo
+transcript, mirroring chat. The transcript is never integrity-checked:
+quarantining it would censor the user's own speech.
 
 ## Validation
 
@@ -65,7 +101,7 @@ timeout and zero-retry policy are the conservative defaults until the report lan
   derived from the Zod contracts; strict mode off; client-side Zod validation always (Reported)
 - [ ] Rate limits, quotas, cost, data retention terms (unknown)
 - [ ] Filipino / Taglish input quality (test, do not assume)
-- [ ] A live request against the real API (mock-verified only so far)
+- [x] Live requests against the real API: `extractGoal` (2026-11-04, one request), `chat` (2026-11-05, one request), `transcribeAudio` (2026-11-05, word-perfect via the app route); remaining ops mock-verified only
 
 ## Configuration
 
@@ -83,8 +119,9 @@ Tests (`services/ai/meta.test.ts`) inject a mock fetch and never touch the netwo
 
 Verified 2026-10-29 (mocked HTTP only): request shape, Bearer auth, all five operations
 returning Zod-valid contracts, malformed/HTTP/network/timeout/config failures, selection
-rules, no key in errors or serialized instances. Not verified: any live request, Taglish
-quality, rate limits, cost.
+rules, no key in errors or serialized instances. Live-verified 2026-11-04:
+exactly one `extractGoal` request succeeded (see runbook outcome below).
+Not verified: other ops over the wire, Taglish quality, rate limits, cost.
 
 ## Live smoke test (manual, requires your own key)
 
@@ -102,6 +139,15 @@ Expect: exit 0 and a JSON object with `goal`, `needs`, `offers`, `skills` (1 req
 negligible cost). Then record the outcome here: date, model used, pass/fail, and the
 `MetaProviderError` code if it failed. If it fails with `http`, the wire details above
 need re-checking against official docs before any other live use.
+
+Outcome 2026-11-04: **pass**. One live `extractGoal` via the real
+`extractGoalAction` (the Ask Arko goal-intake flow), model `muse-spark-1.3`
+(defaults, no URL/model override), base `https://api.meta.ai/v1`. Response
+passed `ExtractedGoalSchema` validation and the action labelled it
+`source: "live"`; `/api/health` reported `provider: "meta"`,
+`demoMode: false`. Quality note: the model echoed the goal as the single
+need with empty offers/skills — schema-valid but thin. Still unknown:
+rate limits, cost, data-retention terms, other ops over the wire.
 
 You can also confirm selection end to end: put the key in `apps/web/.env.local` with
 `AI_PROVIDER=meta`, run `npm run dev`, and open `/api/health` (expect `provider: "meta"`,

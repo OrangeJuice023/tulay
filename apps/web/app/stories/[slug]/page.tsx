@@ -52,9 +52,9 @@ export default async function StoryDetailPage({
   ]
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-      <LinkButton href="/stories" variant="secondary">
+      <LinkButton href="/community#illustrative-stories" variant="secondary">
         <ArrowLeft className="h-4 w-4" />
-        All stories
+        Community
       </LinkButton>
       <div className="mt-6 flex flex-wrap items-center gap-2">
         <Tag>{STUDIO_LABEL[story.studio]}</Tag>

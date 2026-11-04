@@ -2,6 +2,8 @@ import Image from 'next/image'
 
 export type ArkoState =
   | 'idle'
+  | 'greeting'
+  | 'thinking'
   | 'curious'
   | 'searching'
   | 'match-found'
@@ -10,8 +12,12 @@ export type ArkoState =
   | 'celebration'
   | 'empty'
 
+// `greeting` and `thinking` are presentation aliases that reuse approved crops
+// (see `docs/brand/mascot.md`): no new artwork, no redesign.
 const ARKO_ASSET: Record<ArkoState, { src: string; width: number; height: number }> = {
   idle: { src: '/brand/mascot/arko-idle.png', width: 164, height: 128 },
+  greeting: { src: '/brand/mascot/arko-curious.png', width: 160, height: 125 },
+  thinking: { src: '/brand/mascot/arko-idle.png', width: 164, height: 128 },
   curious: { src: '/brand/mascot/arko-curious.png', width: 160, height: 125 },
   searching: { src: '/brand/mascot/arko-searching.png', width: 164, height: 150 },
   'match-found': { src: '/brand/mascot/arko-match-found.png', width: 156, height: 150 },

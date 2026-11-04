@@ -24,7 +24,9 @@ Approved states (each maps to an `ArkoState` in `apps/web/components/Arko.tsx`):
 | State | Approved artwork | In-app moment |
 | --- | --- | --- |
 | `idle` | `public/brand/mascot/arko-idle.png` | Browsing header ("Person N of M") |
-| `curious` | `arko-curious.png` | Reserved for onboarding prompts |
+| `greeting` | `arko-curious.png` (alias, no new art) | Dashboard greeting beside "Good morning" |
+| `thinking` | `arko-idle.png` (alias, no new art) | Ask Arko composing a reply |
+| `curious` | `arko-curious.png` | Onboarding prompts |
 | `searching` | `arko-searching.png` | Matching loading ("Building a bridge…") |
 | `match-found` | `arko-match-found.png` | Reserved for future match highlight |
 | `pending` | `arko-pending.png` | Waiting on the other person's reply |

@@ -1,6 +1,6 @@
 import { Skeleton } from '@/components/LoadingScreen'
 
-// Mirrors the journey's first step (progress bar, heading, three path cards) to avoid layout jumps.
+// Mirrors the journey's first step (progress bar, heading, three journey cards) to avoid layout jumps.
 export default function Loading() {
   return (
     <div role="status" className="mx-auto w-full max-w-3xl px-4 pt-6 pb-16 sm:px-6 sm:pt-10">

@@ -24,9 +24,10 @@ const STUDIOS = [
     ],
     engine:
       'Every direction ends the same way: a reciprocal match with someone who can help you, and who you can help in return.',
-    status: 'live' as const,
-    statusNote: 'Career mapping and career-intelligent matching are live in the demo journey today.',
-    cta: { href: '/start', label: 'Try career mapping in the demo' },
+    status: 'mixed' as const,
+    statusNote:
+      'Matching and introductions are live in the demo journey today. Career Map, Simulator and Transition Planner are in design.',
+    cta: { href: '/studios/career', label: 'Open Career Studio' },
     Icon: Leaf,
   },
   {
@@ -46,7 +47,7 @@ const STUDIOS = [
     status: 'preview' as const,
     statusNote:
       'Freelance tools are in design. This is a preview of what is planned. The matching underneath already works in the demo journey.',
-    cta: { href: '/start', label: 'Try matching in the demo journey' },
+    cta: { href: '/studios/freelance', label: 'Open Freelance Studio' },
     Icon: Briefcase,
   },
   {
@@ -65,7 +66,7 @@ const STUDIOS = [
     status: 'preview' as const,
     statusNote:
       'Venture tools are in design. This is a preview of what is planned. The matching underneath already works in the demo journey.',
-    cta: { href: '/start', label: 'Try matching in the demo journey' },
+    cta: { href: '/studios/venture', label: 'Open Venture Studio' },
     Icon: Rocket,
   },
 ]
@@ -98,10 +99,10 @@ export default function ExplorePage() {
                 <h2 className="text-xl font-bold text-ink">{studio.name}</h2>
                 <p
                   className={`text-xs font-semibold tracking-wide uppercase ${
-                    studio.status === 'live' ? 'text-forest' : 'text-coral-ink'
+                    studio.status === 'mixed' ? 'text-forest' : 'text-coral-ink'
                   }`}
                 >
-                  {studio.status === 'live' ? 'Live in the demo' : 'Preview: in design'}
+                  {studio.status === 'mixed' ? 'Partly live' : 'Preview: in design'}
                 </p>
               </div>
             </div>
@@ -127,7 +128,7 @@ export default function ExplorePage() {
         <div>
           <p className="font-semibold text-ink">Not sure where to start?</p>
           <p className="mt-1 text-sm text-muted">
-            Tell Tulay your goal once. The demo journey matches you reciprocally, whatever path
+            Tell Tulay your goal once. The demo journey matches you reciprocally, whatever journey
             you are on. No account needed.
           </p>
           <LinkButton href="/start" className="mt-3">

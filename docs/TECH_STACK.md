@@ -11,7 +11,7 @@ yet built), or **Unresolved**.
 | Styling | Tailwind CSS 4 | Decided (in repo) |
 | Validation | Zod 3 | Decided (in `packages/shared`) |
 | Auth + database | Supabase Auth + PostgreSQL with RLS | Recommended (no client or migrations yet) |
-| AI | Meta provider in `services/ai` (Chat Completions + `json_schema`) | Implemented 2026-10-29, mock-verified; wire details Reported, live request open |
+| AI | Meta provider in `services/ai` (Chat Completions + `json_schema`) | Implemented 2026-10-29, mock-verified; wire details Reported; one live `extractGoal` passed 2026-11-04, other ops unverified |
 | Matching | SQL queries + deterministic TypeScript scoring | Recommended |
 | Hosting | Vercel for web, Supabase hosted | Recommended |
 | Package manager | npm | Decided (no lockfile committed yet) |
@@ -34,8 +34,8 @@ structured need, explain why a real candidate fits, draft an introduction the us
 It does not pick candidates, score them as truth, or change consent state. This keeps the demo
 honest and works even when the model is unavailable (demo provider). Endpoint, model name and
 structured-output shape are corroborated from public sources (provenance in
-`docs/AI_AGENT_DESIGN.md`); primary-docs confirmation, rate limits and a live request are
-still open.
+`docs/AI_AGENT_DESIGN.md`); primary-docs confirmation and rate limits are still open,
+and only `extractGoal` has one live request behind it.
 
 **Deterministic matching.** For a community of tens to hundreds of members, filtering by
 tag overlap between one person's needs and another's offers (plus language and availability) in

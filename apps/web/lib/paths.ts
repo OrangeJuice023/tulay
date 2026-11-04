@@ -1,6 +1,8 @@
 /**
- * The three starting paths. A path only changes copy, suggested tags and sample prompts; every
- * path uses the same `findCandidates` matching. Sample tags must exist in
+ * The three starting journeys (user-facing term; this module keeps the historic
+ * `Path` names internally so the /start demo stays stable). A journey only
+ * changes copy, suggested tags and sample prompts; every journey uses the same
+ * `findCandidates` matching. Sample tags must exist in
  * `data/fixtures/demo-community.json` (checked when the vocabulary is built).
  */
 export type PathId = 'career' | 'freelance' | 'company'

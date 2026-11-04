@@ -36,8 +36,8 @@ export type ActionResult<T> = { ok: true; data: T } | { ok: false; error: string
 
 /**
  * Where the AI wording came from. `DemoProvider` is deterministic;
- * `MetaModelProvider` is a real Chat-Completions client (mock-verified, no live
- * request yet - see docs/AI_AGENT_DESIGN.md). `textSource()` reflects the active
+ * `MetaModelProvider` is a real Chat-Completions client (mock-verified, plus one
+ * live `extractGoal` 2026-11-04 - see docs/AI_AGENT_DESIGN.md). `textSource()` reflects the active
  * provider: `live` only when a real model call happens. The UI must label
  * `demo-template` output as such.
  */

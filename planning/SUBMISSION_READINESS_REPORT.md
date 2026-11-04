@@ -1,5 +1,11 @@
 # Tulay — Submission Readiness Report
 
+> **Addendum 2026-11-04 (after this report):** exactly one live Meta Model API
+> `extractGoal` request has since passed (see `docs/AI_AGENT_DESIGN.md`
+> runbook outcome). Every "zero live requests" line below was true when
+> written and now reads "one live `extractGoal`; all other ops mock-only".
+> Supabase and Resend still have zero live requests.
+
 - **Date:** 2026-11-04 (stabilization pass, same day as snapshot audit)
 - **Evidence root:** `D:\Tulay` — the authoritative repo (git HEAD `4951bf3`,
   branch `feat/tulay-reciprocal-match-improvements`, plus uncommitted WIP).

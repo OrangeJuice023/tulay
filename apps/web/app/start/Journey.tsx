@@ -59,7 +59,7 @@ import {
 
 type Step = 'path' | 'intake' | 'matches' | 'introduce' | 'waiting' | 'collaborate' | 'outcome' | 'done'
 
-const STAGES = ['Path', 'Your goal', 'People', 'Introduction', 'Follow-through'] as const
+const STAGES = ['Journey', 'Your goal', 'People', 'Introduction', 'Follow-through'] as const
 const STAGE_OF: Record<Step, number> = {
   path: 0,
   intake: 1,
@@ -258,7 +258,8 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
     setForm((current) => ({
       ...current,
       goal: assist.goal,
-      needText: assist.needs.join('; '),
+      // Empty extracted needs must never blank the user's own words.
+      needText: assist.needs.length > 0 ? assist.needs.join('; ') : current.needText,
       needTags: assist.needs.filter((tag) => offeredTags.includes(tag)),
       offerText: assist.offers.join('; ') || current.offerText,
       offerTags: assist.offers.filter((tag) => neededTags.includes(tag)),
@@ -543,7 +544,7 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
           headingRef={headingRef}
           eyebrow="Step 1"
           title="What's your next move?"
-          lead="Choose a starting point. It only shapes the questions and suggestions; you can change it later."
+          lead="Choose your journey. It only shapes the questions and suggestions; you can change it later."
         >
           <div className="flex justify-center">
           <Arko state="curious" size={64} />
@@ -564,9 +565,9 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
           lead="Be specific. One concrete need finds better people than a big goal."
           back={() => setStep('path')}
         >
-          {path.dataNote && <Notice tone="demo" title="About this demo path">{path.dataNote}</Notice>}
+          {path.dataNote && <Notice tone="demo" title="About this demo journey">{path.dataNote}</Notice>}
           <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-mist px-4 py-3">
-            <p className="text-sm text-forest-dark">Short on time? Load a sample answer for this path.</p>
+            <p className="text-sm text-forest-dark">Short on time? Load a sample answer for this journey.</p>
             <Button variant="secondary" onClick={fillSample}>
               Use a sample
             </Button>
@@ -598,7 +599,14 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
                     : 'Demo template: Muse Spark is not connected, so this is a fixed example. Edit freely.'}
                 </p>
                 <SummaryRow label="Goal">{assist.goal}</SummaryRow>
-                <SummaryRow label="Needs">{assist.needs.join('; ')}</SummaryRow>
+                {assist.needs.length > 0 ? (
+                  <SummaryRow label="Needs">{assist.needs.join('; ')}</SummaryRow>
+                ) : (
+                  <p className="text-sm text-muted">
+                    No explicit need found in your words — describe the obstacle below in your own
+                    words, and matching will use that.
+                  </p>
+                )}
                 {assist.offers.length > 0 && <SummaryRow label="Offers">{assist.offers.join('; ')}</SummaryRow>}
                 {assist.skills.length > 0 && (
                   <div>
@@ -843,7 +851,7 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
             />
             <TagPicker
               legend="Which skills would help with that?"
-              hint="Tags come from what demo members actually offer. Suggested ones for your path are first."
+              hint="Tags come from what demo members actually offer. Suggested ones for your journey are first."
               tags={orderTags(offeredTags, path.suggestedNeedTags)}
               selected={form.needTags}
               onToggle={(tag) => setForm({ ...form, needTags: toggle(form.needTags, tag) })}

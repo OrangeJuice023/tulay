@@ -156,13 +156,43 @@ export const CollaborationFeedbackSchema = z.object({
 export type CollaborationFeedback = z.infer<typeof CollaborationFeedbackSchema>
 
 // ---------------------------------------------------------------------------
+// Notifications (in-app; email mirrors a subset, see `docs/EMAIL_SETUP.md`)
+// ---------------------------------------------------------------------------
+
+export const NotificationTypeSchema = z.enum([
+  'intro_received',
+  'intro_accepted',
+  'intro_declined',
+  'collab_update',
+  'check_in',
+  'outcome_submitted',
+  'opportunity',
+])
+export type NotificationType = z.infer<typeof NotificationTypeSchema>
+
+export const NotificationSchema = z.object({
+  id: z.string().uuid().optional(),
+  recipientProfileId: z.string().uuid(),
+  type: NotificationTypeSchema,
+  title: z.string().trim().min(1).max(160),
+  body: z.string().trim().min(1).max(500),
+  link: z.string().trim().max(500).optional(),
+  read: z.boolean().default(false),
+  createdAt: z.string().datetime({ offset: true }).optional(),
+})
+export type Notification = z.infer<typeof NotificationSchema>
+
+// ---------------------------------------------------------------------------
 // AI contracts: every model response is validated with these before use.
 // Contexts carry the minimum fields; never contact details.
 // ---------------------------------------------------------------------------
 
 export const ExtractedGoalSchema = z.object({
   goal: z.string().trim().min(1).max(2000),
-  needs: z.array(z.string().trim().min(1).max(500)).min(1).max(10),
+  // Needs stay strictly extractive: obstacles the user explicitly stated, or
+  // an empty array. The model must never derive needs from the goal (see
+  // SYSTEM_EXTRACT); suggestions travel separately as labelled next steps.
+  needs: z.array(z.string().trim().min(1).max(500)).max(10).default([]),
   offers: z.array(z.string().trim().min(1).max(500)).max(10).default([]),
   skills: z.array(z.string().trim().min(1).max(100)).max(20).default([]),
   preferences: z.record(z.unknown()).optional(),

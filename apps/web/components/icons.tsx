@@ -1,4 +1,4 @@
-import type { SVGProps } from 'react'
+﻿import type { SVGProps } from 'react'
 
 type IconProps = SVGProps<SVGSVGElement>
 
@@ -62,5 +62,55 @@ export const Info = (p: IconProps) => (
   <Icon {...p}>
     <circle cx="12" cy="12" r="9" />
     <path d="M12 11v5M12 8h.01" />
+  </Icon>
+)
+export const Home = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M4 11l8-7 8 7M6 10v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-9" />
+  </Icon>
+)
+export const Chat = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M4 6a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3H9l-5 4V6Z" />
+  </Icon>
+)
+export const Compass = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M15.5 8.5l-2 5-5 2 2-5 5-2Z" />
+  </Icon>
+)
+export const Mail = (p: IconProps) => (
+  <Icon {...p}>
+    <rect x="3" y="5" width="18" height="14" rx="3" />
+    <path d="M4 7l8 6 8-6" />
+  </Icon>
+)
+export const Users = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="9" cy="8" r="3.5" />
+    <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.3c2 .7 3.5 2.6 3.5 5.2" />
+  </Icon>
+)
+export const User = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="12" cy="8" r="4" />
+    <path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5" />
+  </Icon>
+)
+export const Bell = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6M10 20a2 2 0 0 0 4 0" />
+  </Icon>
+)
+export const Mic = (p: IconProps) => (
+  <Icon {...p}>
+    <rect x="9" y="3" width="6" height="11" rx="3" />
+    <path d="M5 11a7 7 0 0 0 14 0M12 18v3" />
+  </Icon>
+)
+export const Stop = (p: IconProps) => (
+  <Icon {...p}>
+    <rect x="6" y="6" width="12" height="12" rx="2.5" fill="currentColor" stroke="none" />
   </Icon>
 )
