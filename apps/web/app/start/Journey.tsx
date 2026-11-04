@@ -85,6 +85,9 @@ const EMPTY_FORM: Form = { displayName: '', goal: '', needText: '', needTags: []
 const DEMO_TEXT_NOTE =
   'Demo template: the Meta Model API is not connected yet, so this text is a fixed example. Edit it freely.'
 
+const LIVE_TEXT_NOTE =
+  'Drafted by Muse Spark from your details. Edit it freely.'
+
 function firstName(name: string) {
   return name.split(' ')[0]
 }
@@ -102,7 +105,7 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
   const [need, setNeed] = useState<Need | null>(null)
   const [seekerOffers, setSeekerOffers] = useState<Offer[]>([])
   const [session, setSession] = useState<ConciergeSession | null>(null)
-  const [criteriaSource, setCriteriaSource] = useState<'ai' | 'as-written' | null>(null)
+  const [criteriaSource, setCriteriaSource] = useState<'ai' | 'demo' | 'as-written' | null>(null)
   const [assistText, setAssistText] = useState('')
   const [assist, setAssist] = useState<ExtractedGoal | null>(null)
   const [assistSource, setAssistSource] = useState<AiTextSource>('demo-template')
@@ -130,6 +133,7 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
 
   const [collaboration, setCollaboration] = useState<Collaboration | null>(null)
   const [suggestions, setSuggestions] = useState<string[]>([])
+  const [suggestionsSource, setSuggestionsSource] = useState<AiTextSource>('demo-template')
   const [customStep, setCustomStep] = useState('')
   const [stepError, setStepError] = useState<string | null>(null)
 
@@ -392,7 +396,7 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
       })
       if (result.ok) {
         setDraft(result.data.message)
-        setDraftNote(DEMO_TEXT_NOTE)
+        setDraftNote(result.data.source === 'live' ? LIVE_TEXT_NOTE : DEMO_TEXT_NOTE)
       } else {
         setDraftError(result.error)
       }
@@ -440,6 +444,7 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
     })
     setCollaboration(created)
     setSuggestions([])
+    setSuggestionsSource('demo-template')
     setCustomStep('')
     setStepError(null)
     persist(created)
@@ -450,7 +455,10 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
         need: need.description,
         offer: selected.offer.description,
       })
-      if (result.ok) setSuggestions(result.data.suggestions)
+      if (result.ok) {
+        setSuggestions(result.data.suggestions)
+        setSuggestionsSource(result.data.source)
+      }
     })
   }
 
@@ -892,6 +900,9 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
           {criteriaSource === 'ai' && (
             <p className="text-sm text-muted">Muse structured your search from your description.</p>
           )}
+          {criteriaSource === 'demo' && (
+            <p className="text-sm text-muted">Demo rules structured your search from your description (no model call).</p>
+          )}
           {criteriaSource === 'as-written' && (
             <p className="text-sm text-muted">Muse couldn&apos;t be reached, so we&apos;re using your words as-is.</p>
           )}
@@ -1092,7 +1103,7 @@ export function Journey({ offeredTags, neededTags }: { offeredTags: string[]; ne
           {!nextStepText ? (
             <fieldset className="space-y-3">
               <legend className="text-sm font-semibold text-ink">Pick a next step, or write your own</legend>
-              <p className="text-sm text-muted">{DEMO_TEXT_NOTE}</p>
+              <p className="text-sm text-muted">{suggestionsSource === 'live' ? LIVE_TEXT_NOTE : DEMO_TEXT_NOTE}</p>
               {pending && suggestions.length === 0 && <LoadingState label="Suggesting next steps…" />}
               <div className="grid gap-2">
                 {suggestions.map((text) => (

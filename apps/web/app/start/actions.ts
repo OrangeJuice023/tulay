@@ -35,10 +35,11 @@ import { getCommunity } from '@/lib/community'
 export type ActionResult<T> = { ok: true; data: T } | { ok: false; error: string }
 
 /**
- * Where the AI wording came from. `DemoProvider` is deterministic and
- * `MetaModelProvider` is still a stub that delegates to it (see docs/AI_AGENT_DESIGN.md),
- * so today this is always `demo-template`. It becomes `live` only when a real
- * model call happens. The UI must label `demo-template` output as such.
+ * Where the AI wording came from. `DemoProvider` is deterministic;
+ * `MetaModelProvider` is a real Chat-Completions client (mock-verified, no live
+ * request yet - see docs/AI_AGENT_DESIGN.md). `textSource()` reflects the active
+ * provider: `live` only when a real model call happens. The UI must label
+ * `demo-template` output as such.
  */
 export type AiTextSource = 'demo-template' | 'live'
 
@@ -184,7 +185,7 @@ export async function startBrowsingAction(input: {
   need: unknown
   seekerOffers: unknown[]
   careerDirection?: unknown
-}): Promise<ActionResult<{ session: ConciergeSession; criteriaSource: 'ai' | 'as-written' }>> {
+}): Promise<ActionResult<{ session: ConciergeSession; criteriaSource: 'ai' | 'demo' | 'as-written' }>> {
   const need = NeedSchema.safeParse(input.need)
   if (!need.success) return { ok: false, error: 'Describe the help you need before searching.' }
   const seekerOffers: Offer[] = []
@@ -222,14 +223,16 @@ export async function startBrowsingAction(input: {
     skills: [],
     description: rawText.slice(0, 2000),
   })
-  let criteriaSource: 'ai' | 'as-written' = 'as-written'
+  let criteriaSource: 'ai' | 'demo' | 'as-written' = 'as-written'
   if (rawText.trim().length >= 10) {
     try {
-      const extracted = await getAIProvider().extractCriteria(rawText)
+      const provider = getAIProvider()
+      const extracted = await provider.extractCriteria(rawText)
       const parsed = ConciergeCriteriaSchema.safeParse(extracted)
       if (parsed.success) {
         criteria = parsed
-        criteriaSource = 'ai'
+        // DemoProvider only echoes with deterministic rules - never label that as AI.
+        criteriaSource = provider instanceof DemoProvider ? 'demo' : 'ai'
       }
     } catch {
       // Fall through to the as-written criteria above; the UI says so.
