@@ -34,7 +34,7 @@ flowchart LR
 
 ## Gates per phase
 
-Typecheck + lint + 146-test suite green; production build green; new strings
+Typecheck + lint + 160-test suite green; production build green; new strings
 confirmed in build output; no secrets; no commits without review. The engine
 contracts stay frozen throughout — studios that need new fields propose a
 contract ADR first.

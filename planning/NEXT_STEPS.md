@@ -60,6 +60,18 @@ mission." Every item below serves a complete journey toward mutual help.
   smoke-test runbook added to `docs/AI_AGENT_DESIGN.md` (mechanics validated without a key;
   the live request itself is still for a human with a key to run).
 
+## Done (2026-11-04)
+- Final stabilization, Muse Code: authoritative repo confirmed as `D:\Tulay`
+  (HEAD `4951bf3`); production build fixed (wrong import sources in uncommitted
+  `members.ts` / `demo-repository.ts` — the only build failure, no architecture
+  change); 3 AI/demo attribution bugs fixed (`criteriaSource` `demo` state,
+  `LIVE_TEXT_NOTE` vs `DEMO_TEXT_NOTE` by server source, stale stub comment);
+  new `apps/web/app/start/actions.test.ts` regression test (2 tests);
+  `packages/shared` typecheck fixed (`@types/node` declared, JSON-import
+  fixture load, `aiSuggested` literal, `zz-debug` schema imports).
+  Verified: `npm test` (160 pass, 11 files), `npm run typecheck` (all 3
+  workspaces), `npm run lint`, `npm run build` (19/19 pages). Nothing committed.
+
 ## 1. Meta Model API facts, primary confirmation (Kilo)
 Kilo's research report never landed; confirm the implemented wire values (base URL, auth,
 model, `json_schema` shape) against official docs with citations, plus rate limits, cost,
@@ -75,6 +87,9 @@ simulated reply for real records and a real recipient inbox.
 Use `extractGoal`/`suggestTags` to suggest need/offer tags from the goal text (J1), and
 replace the "Demo template" labels in `app/start/Journey.tsx` with "AI suggestion" only
 when the source is the real model. (Follow-up preserved from the provider milestone.)
+Update 2026-11-04: the label half is done — `criteriaSource` gains an honest
+`demo` state and draft/suggestion notes follow the server-returned source
+(Muse Code); only tag-suggestion UI wiring remains.
 
 ## 4. Deploy and demo script (Claude Code + Muse Code)
 Deploy, then a demo script that proves one completed act of mutual help (the north-star test

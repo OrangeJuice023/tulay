@@ -97,8 +97,8 @@ npm run typecheck   # tsc --noEmit, all workspaces
 npm run build       # production build (web workspace)
 ```
 
-Current results: 146/146 tests, clean lint and typecheck, production build
-green. `next build` defaults to Turbopack; if your sandbox blocks its worker
+Current results: 160/160 tests (11 files), clean lint and typecheck, production build
+green (verified 2026-11-04 in D:/Tulay). `next build` defaults to Turbopack; if your sandbox blocks its worker
 ports, `npx next build --webpack` in `apps/web` is the verified fallback.
 
 </details>

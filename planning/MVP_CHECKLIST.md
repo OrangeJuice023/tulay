@@ -28,7 +28,7 @@ Objective acceptance criteria for demo readiness. Tick only when verified, and n
 
 ## AI
 - [ ] Meta Model API facts verified and cited in `docs/AI_AGENT_DESIGN.md`
-- [x] Real Meta provider for extraction, explanation, draft (+ next steps, tag grounding); outputs Zod-validated (verified 2026-10-29: mocked HTTP, 107 tests pass; no live request yet)
+- [x] Real Meta provider for extraction, explanation, draft (+ next steps, tag grounding); outputs Zod-validated (verified 2026-11-04: mocked HTTP, 160 tests pass; no live request yet)
 - [ ] With the key unset, every journey still works and says "demo"
 - [ ] Model failure (timeout / bad JSON) falls back without breaking the page
 - [ ] Live smoke test performed with a real key (runbook in `docs/AI_AGENT_DESIGN.md`); outcome recorded there
