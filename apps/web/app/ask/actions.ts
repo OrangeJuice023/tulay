@@ -215,7 +215,14 @@ export async function draftIntroAction(input: {
     const draft = await provider.draftIntroduction(parsed.data)
     return { ok: true, data: { message: draft.message, source: sourceOf(provider) } }
   } catch {
-    return { ok: false, error: 'Could not draft a message. You can write your own.' }
+    // Live model failures (timeout, rate limit, key trouble) fall back to a
+    // labelled demo draft so the consent flow stays usable. Same pattern as chat.
+    try {
+      const fallback = await new DemoProvider().draftIntroduction(parsed.data)
+      return { ok: true, data: { message: fallback.message, source: 'demo-template' } }
+    } catch {
+      return { ok: false, error: 'Could not draft a message. You can write your own.' }
+    }
   }
 }
 

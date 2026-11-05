@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { DEMO_SEEKER_ID } from '@/lib/paths'
 import {
   chatWithArkoAction,
+  draftIntroAction,
   explainMatchAction,
   findPeopleAction,
   memberSummaryAction,
@@ -128,6 +129,32 @@ describe('suggestTagsAction', () => {
     expect(result.ok).toBe(true)
     if (!result.ok) return
     expect(result.data.tags).toContain('portfolio-review')
+  })
+})
+
+describe('draftIntroAction live failure fallback (mocked transport failure)', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals()
+    delete process.env.AI_PROVIDER
+    delete process.env.MODEL_API_KEY
+  })
+
+  it('returns a labelled demo draft when the live model call fails', async () => {
+    process.env.AI_PROVIDER = 'meta'
+    process.env.MODEL_API_KEY = 'test-key'
+    vi.stubGlobal('fetch', async () => {
+      throw new Error('network down')
+    })
+    const result = await draftIntroAction({
+      senderName: 'Alex',
+      recipientName: 'Maria',
+      need: 'Find a mentor for portfolio feedback',
+      offer: 'Offer peer practice in return',
+    })
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.data.source).toBe('demo-template')
+    expect(result.data.message.length).toBeGreaterThan(10)
   })
 })
 

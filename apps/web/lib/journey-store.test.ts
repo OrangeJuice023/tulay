@@ -3,6 +3,7 @@ import {
   clearJourney,
   getSnapshot,
   saveThread,
+  subscribe,
   type ChatThread,
 } from './journey-store'
 
@@ -84,5 +85,33 @@ describe('journey thread isolation', () => {
     const byId = new Map(snapshot.threads.map((item) => [item.id, item.messages.length]))
     expect(byId.get('thread-a')).toBe(3)
     expect(byId.get('thread-b')).toBe(1)
+  })
+})
+
+describe('journey store notification dedupe', () => {
+  beforeEach(() => {
+    installWindowStub()
+    clearJourney()
+  })
+
+  it('does not notify subscribers when an update leaves content unchanged', () => {
+    const seen: number[] = []
+    const unsubscribe = subscribe(() => seen.push(getSnapshot().threads.length))
+    const same = thread('ask-current', ['hello'])
+    saveThread(same)
+    saveThread(same)
+    unsubscribe()
+    // One notify for the real write; the identical rewrite must stay silent or
+    // effects that persist on every render cascade into a render loop.
+    expect(seen).toEqual([1])
+  })
+
+  it('notifies once per real change', () => {
+    const seen: number[] = []
+    const unsubscribe = subscribe(() => seen.push(getSnapshot().threads.length))
+    saveThread(thread('a', ['a1']))
+    saveThread(thread('b', ['b1']))
+    unsubscribe()
+    expect(seen).toEqual([1, 2])
   })
 })

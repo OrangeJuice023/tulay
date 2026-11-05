@@ -168,8 +168,14 @@ function read(): JourneySnapshot {
 
 function write(next: JourneySnapshot) {
   try {
-    window.localStorage.setItem(KEY, JSON.stringify(next))
-    cachedRaw = null
+    const serialized = JSON.stringify(next)
+    // Skip no-op writes: subscribers (useSyncExternalStore) re-render on every
+    // dispatch, so an identical write inside an effect would cascade into a
+    // render loop. Real changes still notify exactly once.
+    if (serialized === cachedRaw) return
+    window.localStorage.setItem(KEY, serialized)
+    cachedRaw = serialized
+    cachedValue = next
     window.dispatchEvent(new Event(EVENT))
   } catch {
     // Storage unavailable (private mode): the flow still works in memory only.

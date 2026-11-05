@@ -215,7 +215,7 @@ npm run typecheck # tsc --noEmit (all workspaces)
 npm run build     # production build (web workspace)
 ```
 
-Status: 376 tests / 32 files, all passing (verified 2026-11-05 on `main`; run `npm test` for the current number).
+Status: 379 tests / 32 files, all passing (verified 2026-11-05 on `main`; run `npm test` for the current number).
 
 ---
 

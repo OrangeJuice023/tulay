@@ -29,3 +29,5 @@ supabase/.temp
 *.psd
 *.sketch
 *.zip
+
+.vercel

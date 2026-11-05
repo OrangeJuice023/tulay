@@ -128,8 +128,17 @@ export function ArkoWorkspace({
   // Persist the committed thread after render. The store write must never run
   // inside a state updater: React can execute updaters during render, and the
   // store's synchronous event dispatch then schedules a setState mid-render.
+  // Fingerprint of the last persisted thread. The store notifies subscribers
+  // synchronously on write; without this guard, any re-render cycle that
+  // re-fires this effect would write again, notify again, and cascade into a
+  // render loop ("Maximum update depth exceeded"). Identical threads persist
+  // exactly once; real changes (new ids/text) always go through.
+  const lastPersistedRef = useRef<string>('')
   useEffect(() => {
     if (authed || messages.length === 0) return
+    const fingerprint = JSON.stringify(messages.map((m) => [m.id, m.role, m.text, m.source, m.image ?? null]))
+    if (fingerprint === lastPersistedRef.current) return
+    lastPersistedRef.current = fingerprint
     persist(messages)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages, authed])
