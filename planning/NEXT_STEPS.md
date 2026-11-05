@@ -133,6 +133,15 @@ and live Supabase/Meta calls.
   flipped live. New deps: `pptxgenjs` (web), `jszip` (root dev, export test).
 - Env normalized (`AI_PROVIDER=meta`, stray `SUPABASE_URL` removed);
   `/api/health` reports live meta mode.
+- Resume Studio recovered onto `main` (selective path restore, no merge):
+  `/resume` editor (contact, target role, summary, experience, projects,
+  skills, education, certifications), live preview, `improveResumeSection`
+  AI op with labelled demo fallback on live failure, real `%PDF` export,
+  `0008_resumes.sql` + owner RLS applied to production (remote table +
+  42501 anon-write rejection verified), studio entry flipped live.
+  Verified 2026-11-05: 382 tests / 33 files, lint, typecheck, build all
+  green; 18/18 browser acceptance incl. mobile 390px; guest localStorage
+  reload-verified; signed-in Supabase persistence code-verified only.
 
 ## 1. Meta Model API facts, primary confirmation (Kilo)
 Update 2026-11-05: voice wire confirmed vs official docs with citations

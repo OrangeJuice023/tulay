@@ -51,7 +51,7 @@ describe('studio configuration', () => {
       expect(live.length).toBeGreaterThanOrEqual(1)
     }
     expect(STUDIOS.flatMap((s) => s.tools.filter((t) => t.status === 'live')).map((t) => t.title).sort()).toEqual(
-      ['Build Your Team', 'Mentors & Matches', 'Opportunity Board', 'Pitch Deck Studio'].sort(),
+      ['Build Your Team', 'Mentors & Matches', 'Opportunity Board', 'Pitch Deck Studio', 'Resume Studio'].sort(),
     )
   })
 })

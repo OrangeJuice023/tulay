@@ -68,10 +68,10 @@ export const STUDIOS: StudioConfig[] = [
       {
         id: 'resume-studio',
         title: 'Resume Studio',
-        body: 'Shape a resume around the role you want, then get human review on it.',
-        status: 'preview',
-        href: '/start',
-        ctaLabel: 'Try the matching demo',
+        body: 'Shape a resume around the role you want with AI help, then get human review on it.',
+        status: 'live',
+        href: '/resume',
+        ctaLabel: 'Build a resume',
       },
       {
         id: 'portfolio-review',

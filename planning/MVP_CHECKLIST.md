@@ -31,7 +31,7 @@ Objective acceptance criteria for demo readiness. Tick only when verified, and n
 - [x] Real Meta provider for extraction, explanation, draft (+ next steps, tag grounding, chat, voice, deck outline); outputs Zod-validated (verified 2026-11-05: mocked HTTP, 357 tests pass; `extractGoal`, `chat`, `transcribeAudio` passed live)
 - [x] With the key unset, every journey still works and says "demo" (verified 2026-11-04: `DemoProvider` selection + `demo-template` source labels asserted in `actions.test.ts` suites; demo badges throughout the UI)
 - [x] Model failure (timeout / bad JSON) falls back without breaking the page (verified 2026-11-05: ASR 400 → labelled `demo-template` fallback through the live route; chat fallback asserted in tests)
-- [x] Live smoke test performed with a real key (runbook in `docs/AI_AGENT_DESIGN.md`); outcome recorded there (2026-11-05: chat + voice + deck-outline paths live)
+- [x] Live smoke test performed with a real key (runbook in `docs/AI_AGENT_DESIGN.md`); outcome recorded there (2026-11-05: chat + voice + deck-outline + resume-improve paths live)
 
 ## Demo
 - [x] Visual identity applied: logo mark, favicon, tokens, components, landing with exact tagline (2026-10-29)
